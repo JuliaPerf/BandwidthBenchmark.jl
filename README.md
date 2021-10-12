@@ -69,7 +69,7 @@ Memory write bandwidth [MBytes/s] |  8014.1479
 
 we see that `31721.7327 / 8014.1479 ≈ 4` times more reads have happened than writes. Naively, one would expect 3 loads and 1 store, i.e. a factor of 3 instead of 4. The additional load is due to the write allocate (`a` must be loaded before it can be written to).
 
-If we know that write allocates happen (as is usually the case), we can pass `write_allocate=true` to `bwbench` to account for the extra loads. In this case, the table above becomes
+If we know that write allocates happen (as is usually the case), we can pass `write_allocate=true` to `bwbench` to account for the extra loads. In this case, we obtain the following table
 ```
 ┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
 │ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
@@ -84,6 +84,8 @@ If we know that write allocates happen (as is usually the case), we can pass `wr
 │   SDaxpy │     41276.1 │        2579.75 │  0.093708 │ 0.0930321 │ 0.0949028 │
 └──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
 ```
+
+Note that there are no write allocates for `Update`, `Daxpy`, and `SDaxpy`.
 
 ## `bwscaling`
 
