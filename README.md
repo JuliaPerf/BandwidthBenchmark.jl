@@ -19,7 +19,7 @@ Citing from the [original source](https://github.com/RRZE-HPC/TheBandwidthBenchm
 
 Note, that we do not (yet) include the sum reduction in this Julia package.
 
-# `bwbench`
+## `bwbench`
 
 It is highly recommend(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl) or other tools like `numactl` may be useful.
 
@@ -67,7 +67,17 @@ With `write_allocate=true`, which takes write allocates into account, the table 
 └──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
 ```
 
-# `bwscaling`
+### LIKWID
+
+When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker API! Running e.g.
+
+```
+JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
+```
+
+one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out).
+
+## `bwscaling`
 
 Possible Output:
 
