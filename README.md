@@ -22,18 +22,6 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 # `bwbench`
 
 ```
-[pthread wrapper] 
-[pthread wrapper] MAIN -> 0
-[pthread wrapper] PIN_MASK: 0->1  1->2  2->3  3->4  4->5  5->6  6->7  
-[pthread wrapper] SKIP MASK: 0xFFFFFFFFFFFFF801
-	threadid 140662158194432 -> SKIP 
-	threadid 140661888833280 -> core 1 - OK
-	threadid 140661880440576 -> core 2 - OK
-	threadid 140661871404800 -> core 3 - OK
-	threadid 140661789554432 -> core 4 - OK
-	threadid 140661772773120 -> core 5 - OK
-	threadid 140661760186112 -> core 6 - OK
-	threadid 140661735016192 -> core 7 - OK
 Threading enabled, using 8 (of 8) Julia threads
 Total allocated datasize: 3840.0 MB
 	Thread 6 running on core 5.
