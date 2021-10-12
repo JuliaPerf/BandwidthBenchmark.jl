@@ -51,7 +51,25 @@ Total allocated datasize: 3840.0 MB
 └──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
 ```
 
-With `write_allocate=true`, which takes write allocates into account, the table looks like this
+### LIKWID & Write Allocate
+
+When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker API! Running e.g.
+
+```
+JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
+```
+
+one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). For example, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region,
+
+```
+# Schönauer Triad (STRIAD), a[i] = b[i] + c[i] * d[i]`
+Memory read bandwidth [MBytes/s] | 31721.7327
+Memory write bandwidth [MBytes/s] |  8014.1479
+```
+
+we see that `31721.7327 / 8014.1479 ≈ 4` times more reads have happened than writes. Naively, one would expect 3 loads and 1 store, i.e. a factor of 3 instead of 4. The additional load is due to the write allocate (`a` must be loaded before it can be written to).
+
+If we know that write allocates happen (as is usually the case), we can pass `write_allocate=true` to `bwbench` to account for the extra loads. In this case, the table above becomes
 ```
 ┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
 │ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
@@ -66,16 +84,6 @@ With `write_allocate=true`, which takes write allocates into account, the table 
 │   SDaxpy │     41276.1 │        2579.75 │  0.093708 │ 0.0930321 │ 0.0949028 │
 └──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
 ```
-
-### LIKWID
-
-When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker API! Running e.g.
-
-```
-JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
-```
-
-one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out).
 
 ## `bwscaling`
 
