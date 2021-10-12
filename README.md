@@ -93,4 +93,4 @@ Scaling results:
 
 * [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) by RRZE-HPC Erlangen
 * Sister package [STREAMBenchmark.jl](https://github.com/JuliaPerf/STREAMBenchmark.jl)
-* [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl)
+* [LIKWID](https://github.com/RRZE-HPC/likwid) and [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl)
