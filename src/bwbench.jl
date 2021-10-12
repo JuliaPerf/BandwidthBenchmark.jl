@@ -155,10 +155,6 @@ function bwbench(;
     # validation
     validate(a, b, c, d, N, niter)
 
-    @threads :static for i in 1:nthreads
-        println("\tThread $i running on core $(get_core_id()).")
-    end
-
     LIKWID_close()
     return results
 end
