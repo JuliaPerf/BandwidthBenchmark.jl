@@ -59,9 +59,10 @@ function bwbench(;
         var"Max time" = Float64[],
     )
     for j in 1:NBENCH
-        mintime = @views minimum(times[j, :])
-        maxtime = @views maximum(times[j, :])
-        avgtime = @views mean(times[j, :])
+        # ignore the first run because of compilation
+        mintime = @views minimum(times[j, 2:end])
+        maxtime = @views maximum(times[j, 2:end])
+        avgtime = @views mean(times[j, 2:end])
         bytes = BENCHMARKS[j].words * sizeof(Float64) * N
         flops = BENCHMARKS[j].flops * N
         data_rate = 1.0e-06 * bytes / mintime
