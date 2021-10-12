@@ -14,6 +14,7 @@ include("allocate.jl")
 include("affinity.jl")
 include("benchmarks.jl")
 include("bwbench.jl")
-export bwbench
+include("bwscaling.jl")
+export bwbench, bwscaling
 
 end
