@@ -21,6 +21,8 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 
 # `bwbench`
 
+It is highly recommend(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl) or other tools like `numactl` may be useful.
+
 ```
 Threading enabled, using 8 (of 8) Julia threads
 Total allocated datasize: 3840.0 MB
