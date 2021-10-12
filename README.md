@@ -21,19 +21,12 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 
 # `bwbench`
 
+It is highly recommend(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl) or other tools like `numactl` may be useful.
+
 ```
-[pthread wrapper] 
-[pthread wrapper] MAIN -> 0
-[pthread wrapper] PIN_MASK: 0->1  1->2  2->3  3->4  4->5  5->6  6->7  
-[pthread wrapper] SKIP MASK: 0xFFFFFFFFFFFFF801
-	threadid 140662158194432 -> SKIP 
-	threadid 140661888833280 -> core 1 - OK
-	threadid 140661880440576 -> core 2 - OK
-	threadid 140661871404800 -> core 3 - OK
-	threadid 140661789554432 -> core 4 - OK
-	threadid 140661772773120 -> core 5 - OK
-	threadid 140661760186112 -> core 6 - OK
-	threadid 140661735016192 -> core 7 - OK
+julia> using BandwidthBenchmark
+
+julia> bwbench(; verbose=true);
 Threading enabled, using 8 (of 8) Julia threads
 Total allocated datasize: 3840.0 MB
 	Thread 6 running on core 5.
@@ -55,6 +48,22 @@ Total allocated datasize: 3840.0 MB
 │    Daxpy │     40548.7 │        3379.05 │  0.071467 │ 0.0710258 │ 0.0719743 │
 │   STriad │     33344.3 │        2084.02 │  0.115823 │  0.115162 │   0.11737 │
 │   SDaxpy │     41370.0 │        2585.62 │ 0.0935033 │ 0.0928209 │ 0.0941559 │
+└──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
+```
+
+With `write_allocate=true`, which takes write allocates into account, the table looks like this
+```
+┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
+│   String │     Float64 │        Float64 │   Float64 │   Float64 │   Float64 │
+├──────────┼─────────────┼────────────────┼───────────┼───────────┼───────────┤
+│     Init │     38150.7 │            0.0 │ 0.0506281 │ 0.0503267 │ 0.0508563 │
+│     Copy │     40560.1 │            0.0 │ 0.0712144 │ 0.0710057 │ 0.0714202 │
+│   Update │     37862.3 │        2366.39 │ 0.0512318 │ 0.0507101 │   0.05211 │
+│    Triad │     40979.8 │        2561.24 │ 0.0945374 │ 0.0937046 │ 0.0949424 │
+│    Daxpy │     40347.0 │        3362.25 │ 0.0719729 │ 0.0713808 │   0.07248 │
+│   STriad │     41754.5 │        2087.73 │  0.115761 │  0.114958 │  0.117923 │
+│   SDaxpy │     41276.1 │        2579.75 │  0.093708 │ 0.0930321 │ 0.0949028 │
 └──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
 ```
 
@@ -84,3 +93,4 @@ Scaling results:
 
 * [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) by RRZE-HPC Erlangen
 * Sister package [STREAMBenchmark.jl](https://github.com/JuliaPerf/STREAMBenchmark.jl)
+* [LIKWID](https://github.com/RRZE-HPC/likwid) and [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl)
