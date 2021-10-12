@@ -1,0 +1,1 @@
+get_core_id() = Int(@ccall sched_getcpu()::Cint)
