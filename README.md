@@ -1,5 +1,9 @@
 # BandwidthBenchmark
 
+*Measuring memory bandwidth using streaming kernels*
+
+[TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) as a Julia package. Sister packager of [STREAMBenchmark.jl](https://github.com/JuliaPerf/STREAMBenchmark.jl).
+
 # `bwbench`
 
 ```
