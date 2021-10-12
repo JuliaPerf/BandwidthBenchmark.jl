@@ -106,7 +106,7 @@ Use `bwscaling()` to measure the memory bandwidth for an increasing number of th
 ```
 julia> using BandwidthBenchmark
 
-julia> bwscaling()
+julia> bwscaling();
 1 Thread(s): SDaxpy Bandwidth (MB/s) is 13056.6
 Threading enabled, using 2 (of 10) Julia threads
 2 Thread(s): SDaxpy Bandwidth (MB/s) is 24059.99
