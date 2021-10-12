@@ -38,6 +38,8 @@ function bwbench(;
         ),
     )
 
+    LIKWID_init()
+
     # allocate data
     a = allocate(Float64, N, alignment)
     b = allocate(Float64, N, alignment)
@@ -64,6 +66,17 @@ function bwbench(;
                 println("\tThread $i running on core $(get_core_id()).")
             end
         end
+    end
+
+    # initialize LIKWID Marker API (if LIKWID.jl is loaded)
+    @threads :static for i in 1:nthreads
+        LIKWID_register("INIT")
+        LIKWID_register("COPY")
+        LIKWID_register("UPDATE")
+        LIKWID_register("TRIAD")
+        LIKWID_register("DAXPY")
+        LIKWID_register("STRIAD")
+        LIKWID_register("SDAXPY")
     end
 
     # perform measurement
@@ -141,6 +154,12 @@ function bwbench(;
 
     # validation
     validate(a, b, c, d, N, niter)
+
+    @threads :static for i in 1:nthreads
+        println("\tThread $i running on core $(get_core_id()).")
+    end
+
+    LIKWID_close()
     return results
 end
 
@@ -163,12 +182,24 @@ function _run_benchmark(
     times = zeros(NBENCH, niter)
     for k in 1:niter
         times[1, k] = @elapsed init_kernel(b, scalar; kwargs...)
+        LIKWID_start("INIT")
         times[2, k] = @elapsed copy_kernel(c, a; kwargs...)
+        LIKWID_stop("INIT")
+        LIKWID_start("UPDATE")
         times[3, k] = @elapsed update_kernel(a, scalar; kwargs...)
+        LIKWID_stop("UPDATE")
+        LIKWID_start("TRIAD")
         times[4, k] = @elapsed triad_kernel(a, b, c, scalar; kwargs...)
+        LIKWID_stop("TRIAD")
+        LIKWID_start("DAXPY")
         times[5, k] = @elapsed daxpy_kernel(a, b, scalar; kwargs...)
+        LIKWID_stop("DAXPY")
+        LIKWID_start("STRIAD")
         times[6, k] = @elapsed striad_kernel(a, b, c, d; kwargs...)
+        LIKWID_stop("STRIAD")
+        LIKWID_start("SDAXPY")
         times[7, k] = @elapsed sdaxpy_kernel(a, b, c; kwargs...)
+        LIKWID_stop("SDAXPY")
     end
     return times
 end
