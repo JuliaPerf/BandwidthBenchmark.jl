@@ -4,7 +4,20 @@
 
 [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) as a Julia package.
 
-Sister packager of [STREAMBenchmark.jl](https://github.com/JuliaPerf/STREAMBenchmark.jl).
+Citing from the [original source](https://github.com/RRZE-HPC/TheBandwidthBenchmark):
+
+> It contains the following streaming kernels with corresponding data access pattern (Notation: S - store, L - load, WA - write allocate). All variables are vectors, s is a scalar:
+>
+>    * init (S1, WA): Initilize an array: `a = s`. Store only.
+>    * sum (L1): Vector reduction: `s += a`. Load only.
+>    * copy (L1, S1, WA): Classic memcopy: `a = b`.
+>    * update (L1, S1): Update vector: `a = a * scalar`. Also load + store but **without write allocate**.
+>    * triad (L2, S1, WA): Stream triad: `a = b + c * scalar`.
+>    * daxpy (L2, S1): Daxpy (**without write allocate**): `a = a + b * scalar`.
+>    * striad (L3, S1, WA): Schoenauer triad: `a = b + c * d`.
+>    * sdaxpy (L3, S1): Schoenauer triad **without write allocate**: `a = a + b * c`.
+
+Note, that we do not (yet) include the sum reduction in this Julia package.
 
 # `bwbench`
 
@@ -66,3 +79,8 @@ Scaling results:
 │      10.0 │                 40545.9 │
 └───────────┴─────────────────────────┘
 ```
+
+## References
+
+* [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) by RRZE-HPC Erlangen
+* Sister package [STREAMBenchmark.jl](https://github.com/JuliaPerf/STREAMBenchmark.jl)
