@@ -62,7 +62,7 @@ JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mo
 one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). For example, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
 
 ```
-Memory read bandwidth [MBytes/s] | 31721.7327
+Memory read bandwidth [MBytes/s]  | 31721.7327
 Memory write bandwidth [MBytes/s] |  8014.1479
 ```
 
