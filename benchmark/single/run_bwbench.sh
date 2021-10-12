@@ -1,0 +1,1 @@
+julia --project=../.. --math-mode=fast -t8 bwbench.jl

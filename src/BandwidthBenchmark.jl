@@ -6,7 +6,6 @@ using Printf
 using Statistics
 
 # packages
-using ThreadPools
 using DataFrames
 using PrettyTables
 

@@ -1,0 +1,22 @@
+Threading enabled, using 8 (of 8) Julia threads
+Total allocated datasize: 3840.0 MB
+	Thread 5 running on core 33.
+	Thread 3 running on core 32.
+	Thread 7 running on core 4.
+	Thread 8 running on core 1.
+	Thread 6 running on core 3.
+	Thread 2 running on core 2.
+	Thread 4 running on core 22.
+	Thread 1 running on core 13.
+┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
+│   String │     Float64 │        Float64 │   Float64 │   Float64 │   Float64 │
+├──────────┼─────────────┼────────────────┼───────────┼───────────┼───────────┤
+│     Init │     31555.4 │            0.0 │  0.047083 │ 0.0304226 │ 0.0612548 │
+│     Copy │     41523.5 │            0.0 │ 0.0641376 │ 0.0462389 │  0.077784 │
+│   Update │     56015.6 │        3500.97 │ 0.0456661 │ 0.0342762 │ 0.0595208 │
+│    Triad │     48870.6 │        4072.55 │ 0.0844419 │ 0.0589311 │  0.119102 │
+│    Daxpy │     61750.3 │        5145.86 │ 0.0615675 │ 0.0466395 │ 0.0787924 │
+│   STriad │     54169.5 │         3385.6 │  0.101306 │ 0.0708885 │  0.139117 │
+│   SDaxpy │     70395.6 │        4399.73 │ 0.0776229 │ 0.0545488 │  0.099046 │
+└──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘

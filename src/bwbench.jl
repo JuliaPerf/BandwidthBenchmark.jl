@@ -34,29 +34,71 @@ function bwbench(;
     end
 
     # print information
-    nthreads > 1 && @info("Threading enabled, running with $nthreads threads")
+    nthreads > 1 && println("Threading enabled, using $nthreads (of $(Threads.nthreads())) Julia threads")
     if verbose
         alloc = 4.0 * sizeof(Float64) * N * 1.0e-06
-        @info("Total allocated datasize: $(alloc) MB")
+        println("Total allocated datasize: $(alloc) MB")
 
         if Sys.islinux()
             @threads :static for i in 1:nthreads
-                @info("\tThread $i running on core $(get_core_id()).")
+                println("\tThread $i running on core $(get_core_id()).")
             end
         end
     end
 
     # perform measurement
-    times = _run_benchmark(a, b, c, d, scalar, niter)
+    if nthreads == Threads.nthreads()
+        # use all Julia threads, i.e. regular @threads
+        times = _run_benchmark(
+            init_kernel,
+            copy_kernel,
+            update_kernel,
+            triad_kernel,
+            daxpy_kernel,
+            striad_kernel,
+            sdaxpy_kernel,
+            a,
+            b,
+            c,
+            d,
+            scalar,
+            niter,
+        )
+    else
+        # use only first `nthreads` threads, i.e. @threads for tid in 1:nthreads + manual splitting
+        Nperthread = floor(Int, N / nthreads)
+        rest = rem(N, nthreads)
+        thread_indices = collect(Iterators.partition(1:N, Nperthread))
+        if rest != 0
+            # last thread compensates for the nonzero remainder
+            thread_indices[end-1] = thread_indices[end-1].start:thread_indices[end].stop
+        end
+        times = _run_benchmark(
+            init_kernel_fewer,
+            copy_kernel_fewer,
+            update_kernel_fewer,
+            triad_kernel_fewer,
+            daxpy_kernel_fewer,
+            striad_kernel_fewer,
+            sdaxpy_kernel_fewer,
+            a,
+            b,
+            c,
+            d,
+            scalar,
+            niter,
+            ; thread_indices = thread_indices, nthreads = nthreads
+        )
+    end
 
     # analysis / table output of results
-    results = DataFrame(
-        Function = String[],
-        var"Rate (MB/s)" = Float64[],
-        var"Rate (MFlop/s)" = Float64[],
-        var"Avg time" = Float64[],
-        var"Min time" = Float64[],
-        var"Max time" = Float64[],
+    results = DataFrame(;
+        Function=String[],
+        var"Rate (MB/s)"=Float64[],
+        var"Rate (MFlop/s)"=Float64[],
+        var"Avg time"=Float64[],
+        var"Min time"=Float64[],
+        var"Max time"=Float64[],
     )
     for j in 1:NBENCH
         # ignore the first run because of compilation
@@ -67,7 +109,9 @@ function bwbench(;
         flops = BENCHMARKS[j].flops * N
         data_rate = 1.0e-06 * bytes / mintime
         flop_rate = 1.0e-06 * flops / mintime
-        push!(results, [BENCHMARKS[j].label, data_rate, flop_rate, avgtime, mintime, maxtime])
+        push!(
+            results, [BENCHMARKS[j].label, data_rate, flop_rate, avgtime, mintime, maxtime]
+        )
     end
     verbose && pretty_table(results)
 
@@ -76,16 +120,31 @@ function bwbench(;
     return results
 end
 
-function _run_benchmark(a, b, c, d, scalar, niter)
+function _run_benchmark(
+    init_kernel,
+    copy_kernel,
+    update_kernel,
+    triad_kernel,
+    daxpy_kernel,
+    striad_kernel,
+    sdaxpy_kernel,
+    a,
+    b,
+    c,
+    d,
+    scalar,
+    niter,
+    ; kwargs...
+)
     times = zeros(NBENCH, niter)
     for k in 1:niter
-        times[1, k] = @elapsed init_kernel(b, scalar)
-        times[2, k] = @elapsed copy_kernel(c, a)
-        times[3, k] = @elapsed update_kernel(a, scalar)
-        times[4, k] = @elapsed triad_kernel(a, b, c, scalar)
-        times[5, k] = @elapsed daxpy_kernel(a, b, scalar)
-        times[6, k] = @elapsed striad_kernel(a, b, c, d)
-        times[7, k] = @elapsed sdaxpy_kernel(a, b, c)
+        times[1, k] = @elapsed init_kernel(b, scalar; kwargs...)
+        times[2, k] = @elapsed copy_kernel(c, a; kwargs...)
+        times[3, k] = @elapsed update_kernel(a, scalar; kwargs...)
+        times[4, k] = @elapsed triad_kernel(a, b, c, scalar; kwargs...)
+        times[5, k] = @elapsed daxpy_kernel(a, b, scalar; kwargs...)
+        times[6, k] = @elapsed striad_kernel(a, b, c, d; kwargs...)
+        times[7, k] = @elapsed sdaxpy_kernel(a, b, c; kwargs...)
     end
     return times
 end

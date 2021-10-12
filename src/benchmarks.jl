@@ -55,7 +55,7 @@ end
 
 function striad_kernel(a, b, c, d)
     @threads :static for i in eachindex(a)
-        a[i] = b[i] + d[i] * c[i]
+        @inbounds a[i] = b[i] + d[i] * c[i]
     end
     return nothing
 end
@@ -68,103 +68,66 @@ function sdaxpy_kernel(a, b, c)
 end
 
 
-# -------- Kernel (pool of threads) --------
-function init_kernel_pool(a, scalar)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = scalar
+# -------- Kernel (first `nthreads` threads) --------
+function init_kernel_fewer(a, scalar; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = scalar
+        end
     end
     return nothing
 end
 
-function copy_kernel_pool(a, b)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = b[i]
+function copy_kernel_fewer(a, b; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = b[i]
+        end
     end
     return nothing
 end
 
-function update_kernel_pool(a, scalar)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = a[i] * scalar
+function update_kernel_fewer(a, scalar; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = a[i] * scalar
+        end
     end
     return nothing
 end
 
-function triad_kernel_pool(a, b, c, scalar)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = b[i] + scalar * c[i]
+function triad_kernel_fewer(a, b, c, scalar; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = b[i] + scalar * c[i]
+        end
     end
     return nothing
 end
 
-function daxpy_kernel_pool(a, b, scalar)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = a[i] + scalar * b[i]
+function daxpy_kernel_fewer(a, b, scalar; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = a[i] + scalar * b[i]
+        end
     end
     return nothing
 end
 
-function striad_kernel_pool(a, b, c, d)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = b[i] + d[i] * c[i]
+function striad_kernel_fewer(a, b, c, d; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = b[i] + d[i] * c[i]
+        end
     end
     return nothing
 end
 
-function sdaxpy_kernel_pool(a, b, c)
-    @threads :static for i in eachindex(a)
-        @inbounds a[i] = a[i] + b[i] * c[i]
-    end
-    return nothing
-end
-
-
-# -------- Kernel (no threads) --------
-function init_kernel_nothreads(a, scalar)
-    for i in eachindex(a)
-        @inbounds a[i] = scalar
-    end
-    return nothing
-end
-
-function copy_kernel_nothreads(a, b)
-    for i in eachindex(a)
-        @inbounds a[i] = b[i]
-    end
-    return nothing
-end
-
-function update_kernel_nothreads(a, scalar)
-    for i in eachindex(a)
-        @inbounds a[i] = a[i] * scalar
-    end
-    return nothing
-end
-
-function triad_kernel_nothreads(a, b, c, scalar)
-    for i in eachindex(a)
-        @inbounds a[i] = b[i] + scalar * c[i]
-    end
-    return nothing
-end
-
-function daxpy_kernel_nothreads(a, b, scalar)
-    for i in eachindex(a)
-        @inbounds a[i] = a[i] + scalar * b[i]
-    end
-    return nothing
-end
-
-function striad_kernel_nothreads(a, b, c, d)
-    for i in eachindex(a)
-        @inbounds a[i] = b[i] + d[i] * c[i]
-    end
-    return nothing
-end
-
-function sdaxpy_kernel_nothreads(a, b, c)
-    for i in eachindex(a)
-        @inbounds a[i] = a[i] + b[i] * c[i]
+function sdaxpy_kernel_fewer(a, b, c; thread_indices, nthreads)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = a[i] + b[i] * c[i]
+        end
     end
     return nothing
 end
