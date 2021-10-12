@@ -1,30 +1,20 @@
-# -------- Types --------
-@enum Bench begin
-    INIT
-    COPY
-    UPDATE
-    TRIAD
-    DAXPY
-    STRIAD
-    SDAXPY
-end
-Base.to_index(b::Bench) = Int(b)+1
-
+# -------- Benchmarks --------
 struct Benchmark
     label::String
-    words::Int
+    words::Int # bytes = words * sizeof(Float64) * N
     flops::Int
 end
 
 const BENCHMARKS = [
-    Benchmark("Init:       ", 1, 0),
-    Benchmark("Copy:       ", 2, 0),
-    Benchmark("Update:     ", 2, 1),
-    Benchmark("Triad:      ", 3, 2),
-    Benchmark("Daxpy:      ", 3, 2),
-    Benchmark("STriad:     ", 4, 2),
-    Benchmark("SDaxpy:     ", 4, 2)
+    Benchmark("Init", 1, 0),
+    Benchmark("Copy", 2, 0),
+    Benchmark("Update", 2, 1),
+    Benchmark("Triad", 3, 2),
+    Benchmark("Daxpy", 3, 2),
+    Benchmark("STriad", 4, 2),
+    Benchmark("SDaxpy", 4, 2)
 ]
+
 const NBENCH = length(BENCHMARKS)
 
 # -------- Kernel (all threads) --------

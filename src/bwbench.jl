@@ -50,28 +50,29 @@ function bwbench(;
     times = _run_benchmark(a, b, c, d, scalar, niter)
 
     # analysis / table output of results
-    header = [
-        "Function", "Rate (MB/s)", "Rate (MFlop/s)", "Avg time", "Min time", "Max time"
-    ]
-    data = Matrix{Any}(undef, NBENCH, length(header))
+    results = DataFrame(
+        Function = String[],
+        var"Rate (MB/s)" = Float64[],
+        var"Rate (MFlop/s)" = Float64[],
+        var"Avg time" = Float64[],
+        var"Min time" = Float64[],
+        var"Max time" = Float64[],
+    )
     for j in 1:NBENCH
         mintime = @views minimum(times[j, :])
         maxtime = @views maximum(times[j, :])
         avgtime = @views mean(times[j, :])
         bytes = BENCHMARKS[j].words * sizeof(Float64) * N
         flops = BENCHMARKS[j].flops * N
-        data[j, 1] = BENCHMARKS[j].label
-        data[j, 2] = 1.0e-06 * bytes / mintime
-        data[j, 3] = 1.0e-06 * flops / mintime
-        data[j, 4] = avgtime
-        data[j, 5] = mintime
-        data[j, 6] = maxtime
+        data_rate = 1.0e-06 * bytes / mintime
+        flop_rate = 1.0e-06 * flops / mintime
+        push!(results, [BENCHMARKS[j].label, data_rate, flop_rate, avgtime, mintime, maxtime])
     end
-    pretty_table(data; header=header)
+    verbose && pretty_table(results)
 
     # validation
     validate(a, b, c, d, N, niter)
-    return nothing
+    return results
 end
 
 function _run_benchmark(a, b, c, d, scalar, niter)
