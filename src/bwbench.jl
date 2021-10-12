@@ -24,7 +24,7 @@ function bwbench(;
     verbose::Bool=false,
     nthreads::Integer=Threads.nthreads(),
     alignment::Integer=64,
-    write_allocate::Bool=false, # TODO: compensate for write-allocates if true
+    write_allocate::Bool=false,
 )
     # check arguments
     1 ≤ N || throw(ArgumentError("N must be ≥ 1."))
@@ -125,7 +125,11 @@ function bwbench(;
         mintime = @views minimum(times[j, 2:end])
         maxtime = @views maximum(times[j, 2:end])
         avgtime = @views mean(times[j, 2:end])
-        bytes = BENCHMARKS[j].words * sizeof(Float64) * N
+        if write_allocate
+            bytes = BENCHMARKS[j].words * BENCHMARKS[j].write_alloc_factor * sizeof(Float64) * N
+        else
+            bytes = BENCHMARKS[j].words * sizeof(Float64) * N
+        end
         flops = BENCHMARKS[j].flops * N
         data_rate = 1.0e-06 * bytes / mintime
         flop_rate = 1.0e-06 * flops / mintime

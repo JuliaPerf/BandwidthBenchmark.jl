@@ -1,18 +1,19 @@
 # -------- Benchmarks --------
 struct Benchmark
     label::String
-    words::Int # bytes = words * sizeof(Float64) * N
-    flops::Int
+    words::Int64 # bytes = words * sizeof(Float64) * N
+    flops::Int64
+    write_alloc_factor::Float64 # bytes = words * write_alloc_factor * sizeof(Float64) * N
 end
 
 const BENCHMARKS = [
-    Benchmark("Init", 1, 0),
-    Benchmark("Copy", 2, 0),
-    Benchmark("Update", 2, 1),
-    Benchmark("Triad", 3, 2),
-    Benchmark("Daxpy", 3, 2),
-    Benchmark("STriad", 4, 2),
-    Benchmark("SDaxpy", 4, 2)
+    Benchmark("Init", 1, 0, 2.0),
+    Benchmark("Copy", 2, 0, 3/2),
+    Benchmark("Update", 2, 1, 1.0),
+    Benchmark("Triad", 3, 2, 4/3),
+    Benchmark("Daxpy", 3, 2, 1.0),
+    Benchmark("STriad", 4, 2, 5/4),
+    Benchmark("SDaxpy", 4, 2, 1.0)
 ]
 
 const NBENCH = length(BENCHMARKS)
