@@ -59,15 +59,14 @@ When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker
 JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
 ```
 
-one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). For example, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region,
+one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). For example, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
 
 ```
-# Schönauer Triad (STRIAD), a[i] = b[i] + c[i] * d[i]`
 Memory read bandwidth [MBytes/s] | 31721.7327
 Memory write bandwidth [MBytes/s] |  8014.1479
 ```
 
-we see that `31721.7327 / 8014.1479 ≈ 4` times more reads have happened than writes. Naively, one would expect 3 loads and 1 store, i.e. a factor of 3 instead of 4. The additional load is due to the write allocate (`a` must be loaded before it can be written to).
+we see that `31721.7327 / 8014.1479 ≈ 4` times more reads have happened than writes. Naively, one would expect 3 loads and 1 store, i.e. a factor of 3 instead of 4 for the Schönauer Triad `a[i] = b[i] + c[i] * d[i]`. The additional load is due to the write allocate (`a` must be loaded before it can be written to).
 
 If we know that write allocates happen (as is usually the case), we can pass `write_allocate=true` to `bwbench` to account for the extra loads. In this case, we obtain the following table
 ```
