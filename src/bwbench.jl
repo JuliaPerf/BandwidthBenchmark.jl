@@ -38,6 +38,7 @@ function bwbench(;
         ),
     )
 
+    # (maybe) initialize LIKWID Marker API
     LIKWID_init()
 
     # allocate data
@@ -68,7 +69,7 @@ function bwbench(;
         end
     end
 
-    # initialize LIKWID Marker API (if LIKWID.jl is loaded)
+    # (maybe) register LIKWID Marker regions
     @threads :static for i in 1:nthreads
         LIKWID_register("INIT")
         LIKWID_register("COPY")
@@ -80,23 +81,10 @@ function bwbench(;
     end
 
     # perform measurement
-    if nthreads == Threads.nthreads()
+    if false # nthreads == Threads.nthreads()
         # use all Julia threads, i.e. regular @threads
-        times = _run_benchmark(
-            init_kernel,
-            copy_kernel,
-            update_kernel,
-            triad_kernel,
-            daxpy_kernel,
-            striad_kernel,
-            sdaxpy_kernel,
-            a,
-            b,
-            c,
-            d,
-            scalar,
-            niter,
-        )
+        times = _run_benchmark(init_kernel_allthreads, copy_kernel_allthreads, update_kernel_allthreads, triad_kernel_allthreads, daxpy_kernel_allthreads, striad_kernel_allthreads, sdaxpy_kernel_allthreads,
+                               a, b, c, d, scalar; niter=niter, nthreads=nthreads)
     else
         # use only first `nthreads` threads, i.e. @threads for tid in 1:nthreads + manual splitting
         Nperthread = floor(Int, N / nthreads)
@@ -106,22 +94,8 @@ function bwbench(;
             # last thread compensates for the nonzero remainder
             thread_indices[end-1] = thread_indices[end-1].start:thread_indices[end].stop
         end
-        times = _run_benchmark(
-            init_kernel_fewer,
-            copy_kernel_fewer,
-            update_kernel_fewer,
-            triad_kernel_fewer,
-            daxpy_kernel_fewer,
-            striad_kernel_fewer,
-            sdaxpy_kernel_fewer,
-            a,
-            b,
-            c,
-            d,
-            scalar,
-            niter,
-            ; thread_indices = thread_indices, nthreads = nthreads
-        )
+        times = _run_benchmark(init_kernel, copy_kernel, update_kernel, triad_kernel, daxpy_kernel, striad_kernel, sdaxpy_kernel,
+                               a, b, c, d, scalar; niter=niter, thread_indices=thread_indices, nthreads=nthreads)
     end
 
     # analysis / table output of results
@@ -155,49 +129,42 @@ function bwbench(;
     # validation
     validate(a, b, c, d, N, niter)
 
+    # (maybe) close LIKWID Marker API
     LIKWID_close()
     return results
 end
 
-function _run_benchmark(
-    init_kernel,
-    copy_kernel,
-    update_kernel,
-    triad_kernel,
-    daxpy_kernel,
-    striad_kernel,
-    sdaxpy_kernel,
-    a,
-    b,
-    c,
-    d,
-    scalar,
-    niter,
-    ; kwargs...
-)
+function _run_benchmark(init_kernel, copy_kernel, update_kernel, triad_kernel, daxpy_kernel, striad_kernel, sdaxpy_kernel,
+                        a, b, c, d, scalar; niter, nthreads, kwargs...)
     times = zeros(NBENCH, niter)
     for k in 1:niter
-        LIKWID_start("INIT")
-        times[1, k] = @elapsed init_kernel(b, scalar; kwargs...)
-        LIKWID_stop("INIT")
-        LIKWID_start("COPY")
-        times[2, k] = @elapsed copy_kernel(c, a; kwargs...)
-        LIKWID_stop("COPY")
-        LIKWID_start("UPDATE")
-        times[3, k] = @elapsed update_kernel(a, scalar; kwargs...)
-        LIKWID_stop("UPDATE")
-        LIKWID_start("TRIAD")
-        times[4, k] = @elapsed triad_kernel(a, b, c, scalar; kwargs...)
-        LIKWID_stop("TRIAD")
-        LIKWID_start("DAXPY")
-        times[5, k] = @elapsed daxpy_kernel(a, b, scalar; kwargs...)
-        LIKWID_stop("DAXPY")
-        LIKWID_start("STRIAD")
-        times[6, k] = @elapsed striad_kernel(a, b, c, d; kwargs...)
-        LIKWID_stop("STRIAD")
-        LIKWID_start("SDAXPY")
-        times[7, k] = @elapsed sdaxpy_kernel(a, b, c; kwargs...)
-        LIKWID_stop("SDAXPY")
+        LIKWID_start("INIT", nthreads)
+        times[1, k] = @elapsed init_kernel(b, scalar; nthreads=nthreads, kwargs...)
+        LIKWID_stop("INIT", nthreads)
+
+        LIKWID_start("COPY", nthreads)
+        times[2, k] = @elapsed copy_kernel(c, a; nthreads=nthreads, kwargs...)
+        LIKWID_stop("COPY", nthreads)
+
+        LIKWID_start("UPDATE", nthreads)
+        times[3, k] = @elapsed update_kernel(a, scalar; nthreads=nthreads, kwargs...)
+        LIKWID_stop("UPDATE", nthreads)
+
+        LIKWID_start("TRIAD", nthreads)
+        times[4, k] = @elapsed triad_kernel(a, b, c, scalar; nthreads=nthreads, kwargs...)
+        LIKWID_stop("TRIAD", nthreads)
+
+        LIKWID_start("DAXPY", nthreads)
+        times[5, k] = @elapsed daxpy_kernel(a, b, scalar; nthreads=nthreads, kwargs...)
+        LIKWID_stop("DAXPY", nthreads)
+
+        LIKWID_start("STRIAD", nthreads)
+        times[6, k] = @elapsed striad_kernel(a, b, c, d; nthreads=nthreads, kwargs...)
+        LIKWID_stop("STRIAD", nthreads)
+
+        LIKWID_start("SDAXPY", nthreads)
+        times[7, k] = @elapsed sdaxpy_kernel(a, b, c; nthreads=nthreads, kwargs...)
+        LIKWID_stop("SDAXPY", nthreads)
     end
     return times
 end

@@ -12,8 +12,8 @@ using Requires
 
 # LIKWID dummies
 LIKWID_register(tag) = nothing
-LIKWID_start(tag) = nothing
-LIKWID_stop(tag) = nothing
+LIKWID_start(tag, nthreads) = nothing
+LIKWID_stop(tag, nthreads) = nothing
 LIKWID_init() = nothing
 LIKWID_close() = nothing
 
@@ -28,8 +28,16 @@ export bwbench, bwscaling
 function __init__()
     @require LIKWID="bf22376a-e803-4184-b2ed-56326e3bff83" begin
         LIKWID_register(tag) = LIKWID.Marker.registerregion(tag)
-        LIKWID_start(tag) = LIKWID.Marker.startregion(tag)
-        LIKWID_stop(tag) = LIKWID.Marker.stopregion(tag)
+        LIKWID_start(tag, nthreads) = begin
+            @threads :static for i in 1:nthreads
+                LIKWID.Marker.startregion(tag)
+            end
+        end
+        LIKWID_stop(tag, nthreads) = begin
+            @threads :static for i in 1:nthreads
+                LIKWID.Marker.stopregion(tag)
+            end
+        end
         LIKWID_init() = begin
             println("BandwidthBenchmark.jl: LIKWID Marker API is enabled!")
             LIKWID.Marker.init()
