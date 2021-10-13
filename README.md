@@ -21,7 +21,7 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 
 ## Examples
 
-Benchmark examples, conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/), can be found in the [benchmark folder](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmark).
+The benchmark examples showcased below have been conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) and can be found in the [benchmark folder](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmark).
 
 ## `bwbench`
 
