@@ -108,45 +108,62 @@ Use `bwscaling()` to measure the memory bandwidth for an increasing number of th
 * `max_nthreads` (default: `Threads.nthreads()`): upper limit for the number of threads to be used
 
 ```
-julia> using BandwidthBenchmark
-
-julia> bwscaling();
-1 Thread(s): SDaxpy Bandwidth (MB/s) is 13056.6
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 13047.85
 Threading enabled, using 2 (of 10) Julia threads
-2 Thread(s): SDaxpy Bandwidth (MB/s) is 24059.99
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 24023.27
 Threading enabled, using 3 (of 10) Julia threads
-3 Thread(s): SDaxpy Bandwidth (MB/s) is 31227.01
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 31636.02
 Threading enabled, using 4 (of 10) Julia threads
-4 Thread(s): SDaxpy Bandwidth (MB/s) is 35209.16
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 36304.15
 Threading enabled, using 5 (of 10) Julia threads
-5 Thread(s): SDaxpy Bandwidth (MB/s) is 37343.37
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 38594.68
 Threading enabled, using 6 (of 10) Julia threads
-6 Thread(s): SDaxpy Bandwidth (MB/s) is 39221.6
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 40556.33
 Threading enabled, using 7 (of 10) Julia threads
-7 Thread(s): SDaxpy Bandwidth (MB/s) is 39725.92
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 40692.84
 Threading enabled, using 8 (of 10) Julia threads
-8 Thread(s): SDaxpy Bandwidth (MB/s) is 40308.3
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 39040.98
 Threading enabled, using 9 (of 10) Julia threads
-9 Thread(s): SDaxpy Bandwidth (MB/s) is 40321.78
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 39417.47
 Threading enabled, using 10 (of 10) Julia threads
-10 Thread(s): SDaxpy Bandwidth (MB/s) is 40969.97
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 39913.76
 
 
 Scaling results:
 ┌───────────┬─────────────────────────┐
 │ # Threads │ SDaxpy Bandwidth (MB/s) │
 ├───────────┼─────────────────────────┤
-│       1.0 │                 13056.6 │
-│       2.0 │                 24060.0 │
-│       3.0 │                 31227.0 │
-│       4.0 │                 35209.2 │
-│       5.0 │                 37343.4 │
-│       6.0 │                 39221.6 │
-│       7.0 │                 39725.9 │
-│       8.0 │                 40308.3 │
-│       9.0 │                 40321.8 │
-│      10.0 │                 40970.0 │
+│       1.0 │                 13047.8 │
+│       2.0 │                 24023.3 │
+│       3.0 │                 31636.0 │
+│       4.0 │                 36304.1 │
+│       5.0 │                 38594.7 │
+│       6.0 │                 40556.3 │
+│       7.0 │                 40692.8 │
+│       8.0 │                 39041.0 │
+│       9.0 │                 39417.5 │
+│      10.0 │                 39913.8 │
 └───────────┴─────────────────────────┘
+                           Bandwidth Scaling             
+              +----------------------------------------+ 
+        50000 |                                        | 
+              |                                        | 
+              |                                        | 
+              |                   ._.------__.   ._____| 
+              |              ._-*"'          '"""'     | 
+              |           _*"`                         | 
+              |        .r/                             | 
+   MB/s       |       ./                               | 
+              |     ./`                                | 
+              |    .'                                  | 
+              |   .`                                   | 
+              |  .`                                    | 
+              | /`                                     | 
+              |/                                       | 
+        10000 |                                        | 
+              +----------------------------------------+ 
+               1                                     10  
+                                # cores                  
 ```
 
 ## `flopsscaling`
