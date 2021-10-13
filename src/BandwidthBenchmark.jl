@@ -23,7 +23,7 @@ include("affinity.jl")
 include("benchmarks.jl")
 include("bwbench.jl")
 include("bwscaling.jl")
-export bwbench, bwscaling
+export bwbench, bwscaling, flopsscaling
 
 function __init__()
     @require LIKWID="bf22376a-e803-4184-b2ed-56326e3bff83" begin

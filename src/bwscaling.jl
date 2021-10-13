@@ -13,7 +13,8 @@ function bwscaling(; max_nthreads = Threads.nthreads(), kwargs...)
 
     # print results
     println("\n\nScaling results:")
-    pretty_table(hcat(1:max_nthreads, sdaxpy_results); header=["# Threads", "SDaxpy Bandwidth (MB/s)"])    
+    data = hcat(1:max_nthreads, sdaxpy_results)
+    pretty_table(data; header=["# Threads", "SDaxpy Bandwidth (MB/s)"])    
     return data
 end
 
