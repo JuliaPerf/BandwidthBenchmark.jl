@@ -19,6 +19,14 @@ Citing from the [original source](https://github.com/RRZE-HPC/TheBandwidthBenchm
 
 Note, that we do not (yet) include the sum reduction in this Julia package.
 
+## Installation
+
+The package isn't registered (yet), so currently you need to
+
+`] add https://github.com/carstenbauer/BandwidthBenchmark.jl`
+
+before you can `using BandwidthBenchmark`.
+
 ## Examples
 
 The benchmark examples showcased below have been conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) and can be found in the [benchmark folder](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmark).
