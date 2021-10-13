@@ -1,0 +1,88 @@
+Thread 19 running on core 18Thread 14 running on core 13
+Thread 17 running on core 16
+
+Thread 7 running on core 6Thread 15 running on core 14
+Thread 16 running on core 15
+Thread 20 running on core 19
+Thread 12 running on core 11
+
+Thread 18 running on core 17
+Thread 11 running on core 10
+Thread 13 running on core 12
+Thread 4 running on core 3
+Thread 6 running on core 5
+Thread 9 running on core 8
+Thread 2 running on core 1
+Thread 10 running on core 9
+Thread 8 running on core 7
+Thread 5 running on core 4
+Thread 3 running on core 2
+Thread 1 running on core 0
+
+1 Thread(s): Triad Performance (MFlop/s) is 1166.25
+2 Thread(s): Triad Performance (MFlop/s) is 2252.81
+3 Thread(s): Triad Performance (MFlop/s) is 3277.53
+4 Thread(s): Triad Performance (MFlop/s) is 4068.51
+5 Thread(s): Triad Performance (MFlop/s) is 4441.2
+6 Thread(s): Triad Performance (MFlop/s) is 4645.92
+7 Thread(s): Triad Performance (MFlop/s) is 4459.59
+8 Thread(s): Triad Performance (MFlop/s) is 4716.12
+9 Thread(s): Triad Performance (MFlop/s) is 4598.91
+10 Thread(s): Triad Performance (MFlop/s) is 4720.06
+11 Thread(s): Triad Performance (MFlop/s) is 5013.51
+12 Thread(s): Triad Performance (MFlop/s) is 5614.9
+13 Thread(s): Triad Performance (MFlop/s) is 6015.33
+14 Thread(s): Triad Performance (MFlop/s) is 6632.98
+15 Thread(s): Triad Performance (MFlop/s) is 6923.18
+16 Thread(s): Triad Performance (MFlop/s) is 7515.51
+17 Thread(s): Triad Performance (MFlop/s) is 7858.69
+18 Thread(s): Triad Performance (MFlop/s) is 8258.24
+19 Thread(s): Triad Performance (MFlop/s) is 8854.79
+20 Thread(s): Triad Performance (MFlop/s) is 9374.53
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                     1166.25 │
+│       2.0 │                     2252.81 │
+│       3.0 │                     3277.53 │
+│       4.0 │                     4068.51 │
+│       5.0 │                      4441.2 │
+│       6.0 │                     4645.92 │
+│       7.0 │                     4459.59 │
+│       8.0 │                     4716.12 │
+│       9.0 │                     4598.91 │
+│      10.0 │                     4720.06 │
+│      11.0 │                     5013.51 │
+│      12.0 │                      5614.9 │
+│      13.0 │                     6015.33 │
+│      14.0 │                     6632.98 │
+│      15.0 │                     6923.18 │
+│      16.0 │                     7515.51 │
+│      17.0 │                     7858.69 │
+│      18.0 │                     8258.24 │
+│      19.0 │                     8854.79 │
+│      20.0 │                     9374.53 │
+└───────────┴─────────────────────────────┘
+                                Compact Pinning              
+                  +----------------------------------------+ 
+            10000 |                                        | 
+                  |                                      ./| 
+                  |                                    ./  | 
+                  |                                ..-"    | 
+                  |                              .*'       | 
+                  |                           .-/`         | 
+                  |                         _*`            | 
+   MFlops/s       |                      .r"               | 
+                  |           ..  .__._.-'                 | 
+                  |        _-"'"""`  `                     | 
+                  |      ./                                | 
+                  |     .`                                 | 
+                  |    r`                                  | 
+                  |   /                                    | 
+             1000 |  /                                     | 
+                  +----------------------------------------+ 
+                   0                                     20  
+                                    # cores                  

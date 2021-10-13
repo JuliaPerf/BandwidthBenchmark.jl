@@ -1,0 +1,112 @@
+[1;34m[pthread wrapper] 
+[0m[1;34m[pthread wrapper] MAIN -> 0
+[0m[1;34m[pthread wrapper] PIN_MASK: [0m[1;34m0->10  [0m[1;34m1->1  [0m[1;34m2->11  [0m[1;34m3->2  [0m[1;34m4->12  [0m[1;34m5->3  [0m[1;34m6->13  [0m[1;34m7->4  [0m[1;34m8->14  [0m[1;34m9->5  [0m[1;34m10->15  [0m[1;34m11->6  [0m[1;34m12->16  [0m[1;34m13->7  [0m[1;34m14->17  [0m[1;34m15->8  [0m[1;34m16->18  [0m[1;34m17->9  [0m[1;34m18->19  [0m[1;34m19->20  [0m[1;34m20->30  [0m[1;34m21->21  [0m[1;34m22->31  [0m[1;34m23->22  [0m[1;34m24->32  [0m[1;34m25->23  [0m[1;34m26->33  [0m[1;34m27->24  [0m[1;34m28->34  [0m[1;34m29->25  [0m[1;34m30->35  [0m[1;34m31->26  [0m[1;34m32->36  [0m[1;34m33->27  [0m[1;34m34->37  [0m[1;34m35->28  [0m[1;34m36->38  [0m[1;34m37->29  [0m[1;34m38->39  [0m[1;34m
+[pthread wrapper] SKIP MASK: 0xFFFFFFFFFFE00001
+[0m[1;34m	threadid 139961309226752 -> SKIP 
+[0m[1;34m	threadid 139961027184384 -> core 10 - OK[0m[1;34m
+[0m[1;34m	threadid 139961018791680 -> core 1 - OK[0m[1;34m
+[0m[1;34m	threadid 139960904578816 -> core 11 - OK[0m[1;34m
+[0m[1;34m	threadid 139961010398976 -> core 2 - OK[0m[1;34m
+[0m[1;34m	threadid 139961001363200 -> core 12 - OK[0m[1;34m
+[0m[1;34m	threadid 139960991684352 -> core 3 - OK[0m[1;34m
+[0m[1;34m	threadid 139960866825984 -> core 13 - OK[0m[1;34m
+[0m[1;34m	threadid 139960854238976 -> core 4 - OK[0m[1;34m
+[0m[1;34m	threadid 139960619366144 -> core 14 - OK[0m[1;34m
+[0m[1;34m	threadid 139960610973440 -> core 5 - OK[0m[1;34m
+[0m[1;34m	threadid 139960589997824 -> core 15 - OK[0m[1;34m
+[0m[1;34m	threadid 139960581605120 -> core 6 - OK[0m[1;34m
+[0m[1;34m	threadid 139960204130048 -> core 16 - OK[0m[1;34m
+[0m[1;34m	threadid 139960187348736 -> core 7 - OK[0m[1;34m
+[0m[1;34m	threadid 139959881168640 -> core 17 - OK[0m[1;34m
+[0m[1;34m	threadid 139959738558208 -> core 8 - OK[0m[1;34m
+[0m[1;34m	threadid 139959872775936 -> core 18 - OK[0m[1;34m
+[0m[1;34m	threadid 139959763728128 -> core 9 - OK[0m[1;34m
+[0m[1;34m	threadid 139959755335424 -> core 19 - OK[0m[1;34m
+[0mThread 10 running on core 14Thread 20 running on core 19
+Thread 18 running on core 18
+
+Thread 4 running on core 11
+Thread 11 running on core 5
+Thread 8 running on core 13
+Thread 2 running on core 10
+Thread 12 running on core 15
+Thread 14 running on core 16
+Thread 6 running on core 12
+Thread 16 running on core 17
+Thread 13 running on core 6
+Thread 9 running on core 4
+Thread 17 running on core 8
+Thread 7 running on core 3
+Thread 3 running on core 1
+Thread 19 running on core 9
+Thread 1 running on core 0
+Thread 15 running on core 7
+Thread 5 running on core 2
+
+1 Thread(s): Triad Performance (MFlop/s) is 1167.24
+2 Thread(s): Triad Performance (MFlop/s) is 2320.18
+3 Thread(s): Triad Performance (MFlop/s) is 3389.58
+4 Thread(s): Triad Performance (MFlop/s) is 4496.33
+5 Thread(s): Triad Performance (MFlop/s) is 5445.06
+6 Thread(s): Triad Performance (MFlop/s) is 6519.91
+7 Thread(s): Triad Performance (MFlop/s) is 5777.31
+8 Thread(s): Triad Performance (MFlop/s) is 8017.23
+9 Thread(s): Triad Performance (MFlop/s) is 6941.18
+10 Thread(s): Triad Performance (MFlop/s) is 8810.93
+11 Thread(s): Triad Performance (MFlop/s) is 8442.98
+12 Thread(s): Triad Performance (MFlop/s) is 9105.41
+13 Thread(s): Triad Performance (MFlop/s) is 7894.71
+14 Thread(s): Triad Performance (MFlop/s) is 9358.44
+15 Thread(s): Triad Performance (MFlop/s) is 8808.02
+16 Thread(s): Triad Performance (MFlop/s) is 9393.56
+17 Thread(s): Triad Performance (MFlop/s) is 8345.35
+18 Thread(s): Triad Performance (MFlop/s) is 9321.03
+19 Thread(s): Triad Performance (MFlop/s) is 8631.53
+20 Thread(s): Triad Performance (MFlop/s) is 9194.07
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                     1167.24 │
+│       2.0 │                     2320.18 │
+│       3.0 │                     3389.58 │
+│       4.0 │                     4496.33 │
+│       5.0 │                     5445.06 │
+│       6.0 │                     6519.91 │
+│       7.0 │                     5777.31 │
+│       8.0 │                     8017.23 │
+│       9.0 │                     6941.18 │
+│      10.0 │                     8810.93 │
+│      11.0 │                     8442.98 │
+│      12.0 │                     9105.41 │
+│      13.0 │                     7894.71 │
+│      14.0 │                     9358.44 │
+│      15.0 │                     8808.02 │
+│      16.0 │                     9393.56 │
+│      17.0 │                     8345.35 │
+│      18.0 │                     9321.03 │
+│      19.0 │                     8631.53 │
+│      20.0 │                     9194.07 │
+└───────────┴─────────────────────────────┘
+                                Compact Pinning              
+                  +----------------------------------------+ 
+            10000 |                                        | 
+                  |                    .  .,  /\..*\. .\..r| 
+                  |                   .'**`\..`     \/  "' | 
+                  |               ,\ .`     \`             | 
+                  |               . \.                     | 
+                  |            . ,`  `                     | 
+                  |          ./'..                         | 
+   MFlops/s       |         ./   `                         | 
+                  |        ./                              | 
+                  |       .`                               | 
+                  |      .`                                | 
+                  |     /`                                 | 
+                  |    /                                   | 
+                  |   /                                    | 
+             1000 |  /                                     | 
+                  +----------------------------------------+ 
+                   0                                     20  
+                                    # cores                  
