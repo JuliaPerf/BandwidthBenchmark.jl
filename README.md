@@ -21,9 +21,18 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 
 ## `bwbench`
 
+**Keyword arguments:**
+
+* `N` (default: `120_000_000`): length of vectors
+* `nthreads` (default: `Threads.nthreads()`): number of Julia threads to use
+* `niter` (default: `10`): # of times we repeat the measurement
+* `alignment` (default: `64`): array alignment
+* `verbose` (default: `false`): print result table + thread information etc.
+* `write_allocate` (default: `false`): include write allocate compensation factors
+
 It is highly recommend(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl) or other tools like `numactl` may be useful.
 
-```
+```julia
 julia> using BandwidthBenchmark
 
 julia> bwbench(; verbose=true);
@@ -59,7 +68,7 @@ When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker
 JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
 ```
 
-one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). For example, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
+one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). Among other things, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
 
 ```
 Memory read bandwidth [MBytes/s]  | 31721.7327
@@ -69,7 +78,7 @@ Memory write bandwidth [MBytes/s] |  8014.1479
 we see that `31721.7327 / 8014.1479 ≈ 4` times more reads have happened than writes. Naively, one would expect 3 loads and 1 store, i.e. a factor of 3 instead of 4 for the Schönauer Triad `a[i] = b[i] + c[i] * d[i]`. The additional load is due to the write allocate (`a` must be loaded before it can be written to).
 
 If we know that write allocates happen (as is usually the case), we can pass `write_allocate=true` to `bwbench` to account for the extra loads. In this case, we obtain the following table
-```
+```julia
 ┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
 │ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
 │   String │     Float64 │        Float64 │   Float64 │   Float64 │   Float64 │
@@ -88,23 +97,51 @@ Note that there are no write allocates for `Update`, `Daxpy`, and `SDaxpy`.
 
 ## `bwscaling`
 
-Possible Output:
+Use `bwscaling()` to measure the memory bandwidth for an increasing number of threads (`1:max_nthreads`).
+
+**Keyword arguments:**
+
+* `max_nthreads` (default: `Threads.nthreads()`): upper limit for the number of threads to be used
 
 ```
+julia> using BandwidthBenchmark
+
+julia> bwscaling();
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 13056.6
+Threading enabled, using 2 (of 10) Julia threads
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 24059.99
+Threading enabled, using 3 (of 10) Julia threads
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 31227.01
+Threading enabled, using 4 (of 10) Julia threads
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 35209.16
+Threading enabled, using 5 (of 10) Julia threads
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 37343.37
+Threading enabled, using 6 (of 10) Julia threads
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 39221.6
+Threading enabled, using 7 (of 10) Julia threads
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 39725.92
+Threading enabled, using 8 (of 10) Julia threads
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 40308.3
+Threading enabled, using 9 (of 10) Julia threads
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 40321.78
+Threading enabled, using 10 (of 10) Julia threads
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 40969.97
+
+
 Scaling results:
 ┌───────────┬─────────────────────────┐
 │ # Threads │ SDaxpy Bandwidth (MB/s) │
 ├───────────┼─────────────────────────┤
-│       1.0 │                 12984.4 │
-│       2.0 │                 24013.0 │
-│       3.0 │                 31780.1 │
-│       4.0 │                 36674.6 │
-│       5.0 │                 38757.0 │
-│       6.0 │                 39721.9 │
-│       7.0 │                 40127.3 │
-│       8.0 │                 40238.4 │
-│       9.0 │                 40084.9 │
-│      10.0 │                 40545.9 │
+│       1.0 │                 13056.6 │
+│       2.0 │                 24060.0 │
+│       3.0 │                 31227.0 │
+│       4.0 │                 35209.2 │
+│       5.0 │                 37343.4 │
+│       6.0 │                 39221.6 │
+│       7.0 │                 39725.9 │
+│       8.0 │                 40308.3 │
+│       9.0 │                 40321.8 │
+│      10.0 │                 40970.0 │
 └───────────┴─────────────────────────┘
 ```
 
