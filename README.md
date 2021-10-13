@@ -19,6 +19,10 @@ Citing from the [original source](https://github.com/RRZE-HPC/TheBandwidthBenchm
 
 Note, that we do not (yet) include the sum reduction in this Julia package.
 
+## Examples
+
+Benchmark examples, conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/), can be found in the [benchmark folder](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmark).
+
 ## `bwbench`
 
 **Keyword arguments:**
@@ -143,6 +147,67 @@ Scaling results:
 │       9.0 │                 40321.8 │
 │      10.0 │                 40970.0 │
 └───────────┴─────────────────────────┘
+```
+
+## `flopsscaling`
+
+Since we also estimate the MFlops/s for our streaming kernels, we can also investigate the scaling of the floating point performance for increasing number of threads (`1:max_nthreads`). The function `flopsscaling` does exactly that based on the Triad kernel.
+
+**Keyword arguments:**
+
+* `max_nthreads` (default: `Threads.nthreads()`): upper limit for the number of threads to be used
+
+### Compact vs Scattered Pinning:
+
+Using `flopsscaling`, we can, for example, benchmark and compare the performance of different thread pinning scenarios:
+
+* Compact Pinning: fill physical cores chronologically, i.e. first socket first, second socket second.
+* Scattered Pinning: fill both sockets simultaneously, i.e. alternating between first and second socket
+
+```
+                                Compact Pinning              
+                  +----------------------------------------+ 
+            10000 |                                        | 
+                  |                                      ./| 
+                  |                                    ./  | 
+                  |                                ..-"    | 
+                  |                              .*'       | 
+                  |                           .-/`         | 
+                  |                         _*`            | 
+   MFlops/s       |                      .r"               | 
+                  |           ..  .__._.-'                 | 
+                  |        _-"'"""`  `                     | 
+                  |      ./                                | 
+                  |     .`                                 | 
+                  |    r`                                  | 
+                  |   /                                    | 
+             1000 |  /                                     | 
+                  +----------------------------------------+ 
+                   0                                     20  
+                                    # cores            
+```
+
+```
+                                Scattered Pinning              
+                  +----------------------------------------+ 
+            10000 |                                        | 
+                  |                    .  .,  /\..*\. .\..r| 
+                  |                   .'**`\..`     \/  "' | 
+                  |               ,\ .`     \`             | 
+                  |               . \.                     | 
+                  |            . ,`  `                     | 
+                  |          ./'..                         | 
+   MFlops/s       |         ./   `                         | 
+                  |        ./                              | 
+                  |       .`                               | 
+                  |      .`                                | 
+                  |     /`                                 | 
+                  |    /                                   | 
+                  |   /                                    | 
+             1000 |  /                                     | 
+                  +----------------------------------------+ 
+                   0                                     20  
+                                    # cores                  
 ```
 
 ## References
