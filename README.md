@@ -235,6 +235,8 @@ Using `flopsscaling`, we can, for example, benchmark and compare the performance
                                     # cores                  
 ```
 
+(For a discussion, see https://discourse.julialang.org/t/compact-vs-scattered-pinning/69722)
+
 ## References
 
 * [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) by RRZE-HPC Erlangen
