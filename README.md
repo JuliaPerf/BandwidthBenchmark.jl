@@ -42,7 +42,7 @@ The benchmark examples showcased below have been conducted on the [Emmy cluster 
 * `verbose` (default: `false`): print result table + thread information etc.
 * `write_allocate` (default: `false`): include write allocate compensation factors
 
-It is highly recommended(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl) or other tools like `numactl` may be useful.
+It is highly recommended(!) to pin the Julia threads to specific cores (according to the architecture at hand). The simplest way is probably to set `JULIA_EXCLUSIVE=1`, which will pin Julia threads to the first `N` cores of the system. For more specific pinning, [ThreadPinning.jl](https://github.com/carstenbauer/ThreadPinning.jl), [LIKIWD.jl](https://github.com/JuliaPerf/LIKWID.jl), or other tools like `numactl` may be useful.
 
 ```julia
 julia> using BandwidthBenchmark
