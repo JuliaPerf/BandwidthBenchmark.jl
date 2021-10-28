@@ -1,0 +1,624 @@
+Check compact pinning: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 2]
+
+bwbench():
+Threading enabled, using 40 (of 40) Julia threads
+Total allocated datasize: 3840.0 MB
+	Thread 4 running on core 4.
+	Thread 20 running on core 20.
+	Thread 17 running on core 17.
+	Thread 37 running on core 37.
+	Thread 9 running on core 9.
+	Thread 21 running on core 21.
+	Thread 7 running on core 7.
+	Thread 25 running on core 25.
+	Thread 18 running on core 18.
+	Thread 13 running on core 13.
+	Thread 39 running on core 39.
+	Thread 40 running on core 0.
+	Thread 35 running on core 35.
+	Thread 24 running on core 24.
+	Thread 8 running on core 8.
+	Thread 10 running on core 10.
+	Thread 23 running on core 23.
+	Thread 12 running on core 12.
+	Thread 30 running on core 30.
+	Thread 6 running on core 6.
+	Thread 36 running on core 36.
+	Thread 1 running on core 1.
+	Thread 16 running on core 16.
+	Thread 19 running on core 19.
+	Thread 32 running on core 32.
+	Thread 14 running on core 14.
+	Thread 33 running on core 33.
+	Thread 29 running on core 29.
+	Thread 3 running on core 3.
+	Thread 31 running on core 31.
+	Thread 5 running on core 5.
+	Thread 26 running on core 26.
+	Thread 15 running on core 15.
+	Thread 22 running on core 22.
+	Thread 2 running on core 2.
+	Thread 27 running on core 27.
+	Thread 11 running on core 11.
+	Thread 28 running on core 28.
+	Thread 34 running on core 34.
+	Thread 38 running on core 38.
+┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
+│   String │     Float64 │        Float64 │   Float64 │   Float64 │   Float64 │
+├──────────┼─────────────┼────────────────┼───────────┼───────────┼───────────┤
+│     Init │   1.01122e5 │            0.0 │ 0.0190058 │ 0.0189869 │ 0.0190255 │
+│     Copy │     92234.4 │            0.0 │ 0.0354133 │ 0.0312248 │ 0.0359614 │
+│   Update │   1.01364e5 │        6335.28 │ 0.0190196 │ 0.0189415 │ 0.0190771 │
+│    Triad │     73565.9 │        4597.87 │ 0.0560274 │ 0.0521981 │ 0.0565476 │
+│    Daxpy │     81199.1 │        6766.59 │ 0.0355409 │ 0.0354684 │ 0.0358122 │
+│   STriad │    1.0492e5 │        5246.01 │ 0.0523463 │ 0.0457491 │ 0.0605042 │
+│   SDaxpy │     87764.0 │        5485.25 │ 0.0469742 │ 0.0437537 │ 0.0479152 │
+└──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
+bwscaling():
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 17063.74
+Threading enabled, using 2 (of 40) Julia threads
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 33825.94
+Threading enabled, using 3 (of 40) Julia threads
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 49642.15
+Threading enabled, using 4 (of 40) Julia threads
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 62651.68
+Threading enabled, using 5 (of 40) Julia threads
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 72185.55
+Threading enabled, using 6 (of 40) Julia threads
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 78579.86
+Threading enabled, using 7 (of 40) Julia threads
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 84981.83
+Threading enabled, using 8 (of 40) Julia threads
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 88863.03
+Threading enabled, using 9 (of 40) Julia threads
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 93464.18
+Threading enabled, using 10 (of 40) Julia threads
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 96108.17
+Threading enabled, using 11 (of 40) Julia threads
+11 Thread(s): SDaxpy Bandwidth (MB/s) is 99573.37
+Threading enabled, using 12 (of 40) Julia threads
+12 Thread(s): SDaxpy Bandwidth (MB/s) is 101361.08
+Threading enabled, using 13 (of 40) Julia threads
+13 Thread(s): SDaxpy Bandwidth (MB/s) is 101919.46
+Threading enabled, using 14 (of 40) Julia threads
+14 Thread(s): SDaxpy Bandwidth (MB/s) is 103377.07
+Threading enabled, using 15 (of 40) Julia threads
+15 Thread(s): SDaxpy Bandwidth (MB/s) is 102815.66
+Threading enabled, using 16 (of 40) Julia threads
+16 Thread(s): SDaxpy Bandwidth (MB/s) is 103316.56
+Threading enabled, using 17 (of 40) Julia threads
+17 Thread(s): SDaxpy Bandwidth (MB/s) is 103196.93
+Threading enabled, using 18 (of 40) Julia threads
+18 Thread(s): SDaxpy Bandwidth (MB/s) is 102663.26
+Threading enabled, using 19 (of 40) Julia threads
+19 Thread(s): SDaxpy Bandwidth (MB/s) is 102652.26
+Threading enabled, using 20 (of 40) Julia threads
+20 Thread(s): SDaxpy Bandwidth (MB/s) is 102697.28
+Threading enabled, using 21 (of 40) Julia threads
+21 Thread(s): SDaxpy Bandwidth (MB/s) is 101299.9
+Threading enabled, using 22 (of 40) Julia threads
+22 Thread(s): SDaxpy Bandwidth (MB/s) is 104168.14
+Threading enabled, using 23 (of 40) Julia threads
+23 Thread(s): SDaxpy Bandwidth (MB/s) is 100007.82
+Threading enabled, using 24 (of 40) Julia threads
+24 Thread(s): SDaxpy Bandwidth (MB/s) is 98467.52
+Threading enabled, using 25 (of 40) Julia threads
+25 Thread(s): SDaxpy Bandwidth (MB/s) is 98194.54
+Threading enabled, using 26 (of 40) Julia threads
+26 Thread(s): SDaxpy Bandwidth (MB/s) is 97776.71
+Threading enabled, using 27 (of 40) Julia threads
+27 Thread(s): SDaxpy Bandwidth (MB/s) is 96388.69
+Threading enabled, using 28 (of 40) Julia threads
+28 Thread(s): SDaxpy Bandwidth (MB/s) is 99335.24
+Threading enabled, using 29 (of 40) Julia threads
+29 Thread(s): SDaxpy Bandwidth (MB/s) is 95857.96
+Threading enabled, using 30 (of 40) Julia threads
+30 Thread(s): SDaxpy Bandwidth (MB/s) is 94510.38
+Threading enabled, using 31 (of 40) Julia threads
+31 Thread(s): SDaxpy Bandwidth (MB/s) is 94115.22
+Threading enabled, using 32 (of 40) Julia threads
+32 Thread(s): SDaxpy Bandwidth (MB/s) is 93993.59
+Threading enabled, using 33 (of 40) Julia threads
+33 Thread(s): SDaxpy Bandwidth (MB/s) is 92872.42
+Threading enabled, using 34 (of 40) Julia threads
+34 Thread(s): SDaxpy Bandwidth (MB/s) is 100283.72
+Threading enabled, using 35 (of 40) Julia threads
+35 Thread(s): SDaxpy Bandwidth (MB/s) is 87446.91
+Threading enabled, using 36 (of 40) Julia threads
+36 Thread(s): SDaxpy Bandwidth (MB/s) is 84494.32
+Threading enabled, using 37 (of 40) Julia threads
+37 Thread(s): SDaxpy Bandwidth (MB/s) is 82571.46
+Threading enabled, using 38 (of 40) Julia threads
+38 Thread(s): SDaxpy Bandwidth (MB/s) is 80655.59
+Threading enabled, using 39 (of 40) Julia threads
+39 Thread(s): SDaxpy Bandwidth (MB/s) is 78469.14
+Threading enabled, using 40 (of 40) Julia threads
+40 Thread(s): SDaxpy Bandwidth (MB/s) is 99360.09
+
+
+Scaling results:
+┌───────────┬─────────────────────────┐
+│ # Threads │ SDaxpy Bandwidth (MB/s) │
+├───────────┼─────────────────────────┤
+│       1.0 │                 17063.7 │
+│       2.0 │                 33825.9 │
+│       3.0 │                 49642.2 │
+│       4.0 │                 62651.7 │
+│       5.0 │                 72185.6 │
+│       6.0 │                 78579.9 │
+│       7.0 │                 84981.8 │
+│       8.0 │                 88863.0 │
+│       9.0 │                 93464.2 │
+│      10.0 │                 96108.2 │
+│      11.0 │                 99573.4 │
+│      12.0 │               1.01361e5 │
+│      13.0 │               1.01919e5 │
+│      14.0 │               1.03377e5 │
+│      15.0 │               1.02816e5 │
+│      16.0 │               1.03317e5 │
+│      17.0 │               1.03197e5 │
+│      18.0 │               1.02663e5 │
+│      19.0 │               1.02652e5 │
+│      20.0 │               1.02697e5 │
+│      21.0 │                 1.013e5 │
+│      22.0 │               1.04168e5 │
+│      23.0 │               1.00008e5 │
+│      24.0 │                 98467.5 │
+│      25.0 │                 98194.5 │
+│      26.0 │                 97776.7 │
+│      27.0 │                 96388.7 │
+│      28.0 │                 99335.2 │
+│      29.0 │                 95858.0 │
+│      30.0 │                 94510.4 │
+│      31.0 │                 94115.2 │
+│      32.0 │                 93993.6 │
+│      33.0 │                 92872.4 │
+│      34.0 │               1.00284e5 │
+│      35.0 │                 87446.9 │
+│      36.0 │                 84494.3 │
+│      37.0 │                 82571.5 │
+│      38.0 │                 80655.6 │
+│      39.0 │                 78469.1 │
+│      40.0 │                 99360.1 │
+└───────────┴─────────────────────────┘
+                   Bandwidth Scaling, Compact Pinning     
+               +----------------------------------------+ 
+        110000 |              .       .                 | 
+               |          .-""'"""""""'-___..    .,    .| 
+               |        .*`                ` "*--`.    .| 
+               |       r`                         "..  .| 
+               |      /                             ""-|| 
+               |    ./                                  | 
+               |    /                                   | 
+   MB/s        |   ,`                                   | 
+               |   .                                    | 
+               |  |`                                    | 
+               |  .                                     | 
+               | ,`                                     | 
+               | |                                      | 
+               | |                                      | 
+         10000 |                                        | 
+               +----------------------------------------+ 
+                0                                     40  
+                                 # cores                  
+flopsscaling():
+1 Thread(s): Triad Performance (MFlop/s) is 1571.69
+2 Thread(s): Triad Performance (MFlop/s) is 3709.43
+3 Thread(s): Triad Performance (MFlop/s) is 5546.54
+4 Thread(s): Triad Performance (MFlop/s) is 7325.6
+5 Thread(s): Triad Performance (MFlop/s) is 8375.15
+6 Thread(s): Triad Performance (MFlop/s) is 8962.32
+7 Thread(s): Triad Performance (MFlop/s) is 9659.52
+8 Thread(s): Triad Performance (MFlop/s) is 10120.26
+9 Thread(s): Triad Performance (MFlop/s) is 10430.22
+10 Thread(s): Triad Performance (MFlop/s) is 10570.0
+11 Thread(s): Triad Performance (MFlop/s) is 10792.69
+12 Thread(s): Triad Performance (MFlop/s) is 11149.02
+13 Thread(s): Triad Performance (MFlop/s) is 11609.72
+14 Thread(s): Triad Performance (MFlop/s) is 11775.89
+15 Thread(s): Triad Performance (MFlop/s) is 12017.33
+16 Thread(s): Triad Performance (MFlop/s) is 11907.3
+17 Thread(s): Triad Performance (MFlop/s) is 11939.59
+18 Thread(s): Triad Performance (MFlop/s) is 11962.29
+19 Thread(s): Triad Performance (MFlop/s) is 12206.15
+20 Thread(s): Triad Performance (MFlop/s) is 12790.55
+21 Thread(s): Triad Performance (MFlop/s) is 13512.32
+22 Thread(s): Triad Performance (MFlop/s) is 13997.91
+23 Thread(s): Triad Performance (MFlop/s) is 14599.67
+24 Thread(s): Triad Performance (MFlop/s) is 15272.15
+25 Thread(s): Triad Performance (MFlop/s) is 16210.19
+26 Thread(s): Triad Performance (MFlop/s) is 16745.21
+27 Thread(s): Triad Performance (MFlop/s) is 17521.58
+28 Thread(s): Triad Performance (MFlop/s) is 17862.71
+29 Thread(s): Triad Performance (MFlop/s) is 18527.01
+30 Thread(s): Triad Performance (MFlop/s) is 19211.9
+31 Thread(s): Triad Performance (MFlop/s) is 20132.75
+32 Thread(s): Triad Performance (MFlop/s) is 20691.14
+33 Thread(s): Triad Performance (MFlop/s) is 21477.99
+34 Thread(s): Triad Performance (MFlop/s) is 21865.09
+35 Thread(s): Triad Performance (MFlop/s) is 22532.55
+36 Thread(s): Triad Performance (MFlop/s) is 23091.82
+37 Thread(s): Triad Performance (MFlop/s) is 24224.34
+38 Thread(s): Triad Performance (MFlop/s) is 24660.8
+39 Thread(s): Triad Performance (MFlop/s) is 24108.35
+40 Thread(s): Triad Performance (MFlop/s) is 24431.85
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                     1571.69 │
+│       2.0 │                     3709.43 │
+│       3.0 │                     5546.54 │
+│       4.0 │                      7325.6 │
+│       5.0 │                     8375.15 │
+│       6.0 │                     8962.32 │
+│       7.0 │                     9659.52 │
+│       8.0 │                     10120.3 │
+│       9.0 │                     10430.2 │
+│      10.0 │                     10570.0 │
+│      11.0 │                     10792.7 │
+│      12.0 │                     11149.0 │
+│      13.0 │                     11609.7 │
+│      14.0 │                     11775.9 │
+│      15.0 │                     12017.3 │
+│      16.0 │                     11907.3 │
+│      17.0 │                     11939.6 │
+│      18.0 │                     11962.3 │
+│      19.0 │                     12206.1 │
+│      20.0 │                     12790.6 │
+│      21.0 │                     13512.3 │
+│      22.0 │                     13997.9 │
+│      23.0 │                     14599.7 │
+│      24.0 │                     15272.1 │
+│      25.0 │                     16210.2 │
+│      26.0 │                     16745.2 │
+│      27.0 │                     17521.6 │
+│      28.0 │                     17862.7 │
+│      29.0 │                     18527.0 │
+│      30.0 │                     19211.9 │
+│      31.0 │                     20132.8 │
+│      32.0 │                     20691.1 │
+│      33.0 │                     21478.0 │
+│      34.0 │                     21865.1 │
+│      35.0 │                     22532.5 │
+│      36.0 │                     23091.8 │
+│      37.0 │                     24224.3 │
+│      38.0 │                     24660.8 │
+│      39.0 │                     24108.3 │
+│      40.0 │                     24431.8 │
+└───────────┴─────────────────────────────┘
+                        Flops Scaling, Compact Pinning       
+                  +----------------------------------------+ 
+            30000 |                                        | 
+                  |                                        | 
+                  |                                     ___| 
+                  |                                  .r/   | 
+                  |                               _-"`     | 
+                  |                            .r/         | 
+                  |                         _-"`           | 
+   MFlops/s       |                      .r/               | 
+                  |               .  ._-"`                 | 
+                  |        __.-*""'""`                     | 
+                  |    ..*"                                | 
+                  |   ./                                   | 
+                  |  .`                                    | 
+                  | /`                                     | 
+                0 | `                                      | 
+                  +----------------------------------------+ 
+                   0                                     40  
+                                    # cores                  
+Check scatter pinning: [1, 21, 2, 22, 3, 23, 4, 24, 5, 25, 6, 26, 7, 27, 8, 28, 9, 29, 10, 30, 11, 31, 12, 32, 13, 33, 14, 34, 15, 35, 16, 36, 17, 37, 18, 38, 19, 39, 20, 0]
+
+bwbench():
+Threading enabled, using 40 (of 40) Julia threads
+Total allocated datasize: 3840.0 MB
+	Thread 2 running on core 21.
+	Thread 6 running on core 23.
+	Thread 5 running on core 3.
+	Thread 11 running on core 6.	Thread 8 running on core 24.	Thread 7 running on core 4.
+	Thread 4 running on core 22.
+	Thread 17 running on core 9.	Thread 34 running on core 37.	Thread 30 running on core 35.
+	Thread 24 running on core 32.
+	Thread 13 running on core 7.	Thread 28 running on core 34.
+	Thread 3 running on core 2.	Thread 18 running on core 29.	Thread 1 running on core 1.	Thread 20 running on core 30.
+	Thread 37 running on core 19.	Thread 23 running on core 12.	Thread 10 running on core 25.	Thread 15 running on core 8.
+	Thread 12 running on core 26.
+
+	Thread 19 running on core 10.	Thread 35 running on core 18.	Thread 40 running on core 0.
+
+	Thread 29 running on core 15.	Thread 33 running on core 17.
+
+
+
+	Thread 16 running on core 28.
+
+
+
+	Thread 14 running on core 27.
+	Thread 27 running on core 14.
+	Thread 32 running on core 36.
+	Thread 36 running on core 38.	Thread 31 running on core 16.	Thread 39 running on core 20.
+
+
+
+
+
+	Thread 9 running on core 5.
+	Thread 26 running on core 33.	Thread 21 running on core 11.
+
+	Thread 38 running on core 39.
+	Thread 22 running on core 31.	Thread 25 running on core 13.
+
+
+
+
+┌──────────┬─────────────┬────────────────┬───────────┬───────────┬───────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │  Avg time │  Min time │  Max time │
+│   String │     Float64 │        Float64 │   Float64 │   Float64 │   Float64 │
+├──────────┼─────────────┼────────────────┼───────────┼───────────┼───────────┤
+│     Init │   1.01132e5 │            0.0 │ 0.0189991 │ 0.0189851 │ 0.0190167 │
+│     Copy │     80285.4 │            0.0 │ 0.0358979 │  0.035872 │ 0.0359227 │
+│   Update │   1.01035e5 │        6314.71 │ 0.0190156 │ 0.0190033 │ 0.0190307 │
+│    Triad │     68033.5 │        4252.09 │ 0.0564926 │ 0.0564428 │ 0.0565508 │
+│    Daxpy │     81309.9 │        6775.83 │ 0.0354383 │   0.03542 │  0.035451 │
+│   STriad │     79579.1 │        3978.95 │ 0.0603603 │ 0.0603174 │ 0.0603838 │
+│   SDaxpy │     80544.6 │        5034.04 │  0.047747 │ 0.0476754 │ 0.0478205 │
+└──────────┴─────────────┴────────────────┴───────────┴───────────┴───────────┘
+bwscaling():
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 17081.14
+Threading enabled, using 2 (of 40) Julia threads
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 34669.9
+Threading enabled, using 3 (of 40) Julia threads
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 35022.88
+Threading enabled, using 4 (of 40) Julia threads
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 44436.22
+Threading enabled, using 5 (of 40) Julia threads
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 62332.06
+Threading enabled, using 6 (of 40) Julia threads
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 60215.15
+Threading enabled, using 7 (of 40) Julia threads
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 66292.03
+Threading enabled, using 8 (of 40) Julia threads
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 70470.69
+Threading enabled, using 9 (of 40) Julia threads
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 75158.94
+Threading enabled, using 10 (of 40) Julia threads
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 77215.05
+Threading enabled, using 11 (of 40) Julia threads
+11 Thread(s): SDaxpy Bandwidth (MB/s) is 81214.03
+Threading enabled, using 12 (of 40) Julia threads
+12 Thread(s): SDaxpy Bandwidth (MB/s) is 81211.55
+Threading enabled, using 13 (of 40) Julia threads
+13 Thread(s): SDaxpy Bandwidth (MB/s) is 84594.37
+Threading enabled, using 14 (of 40) Julia threads
+14 Thread(s): SDaxpy Bandwidth (MB/s) is 83860.8
+Threading enabled, using 15 (of 40) Julia threads
+15 Thread(s): SDaxpy Bandwidth (MB/s) is 149784.35
+Threading enabled, using 16 (of 40) Julia threads
+16 Thread(s): SDaxpy Bandwidth (MB/s) is 92811.19
+Threading enabled, using 17 (of 40) Julia threads
+17 Thread(s): SDaxpy Bandwidth (MB/s) is 87548.19
+Threading enabled, using 18 (of 40) Julia threads
+18 Thread(s): SDaxpy Bandwidth (MB/s) is 93615.19
+Threading enabled, using 19 (of 40) Julia threads
+19 Thread(s): SDaxpy Bandwidth (MB/s) is 87369.49
+Threading enabled, using 20 (of 40) Julia threads
+20 Thread(s): SDaxpy Bandwidth (MB/s) is 84259.93
+Threading enabled, using 21 (of 40) Julia threads
+21 Thread(s): SDaxpy Bandwidth (MB/s) is 107076.39
+Threading enabled, using 22 (of 40) Julia threads
+22 Thread(s): SDaxpy Bandwidth (MB/s) is 83538.72
+Threading enabled, using 23 (of 40) Julia threads
+23 Thread(s): SDaxpy Bandwidth (MB/s) is 86164.49
+Threading enabled, using 24 (of 40) Julia threads
+24 Thread(s): SDaxpy Bandwidth (MB/s) is 83096.99
+Threading enabled, using 25 (of 40) Julia threads
+25 Thread(s): SDaxpy Bandwidth (MB/s) is 95062.65
+Threading enabled, using 26 (of 40) Julia threads
+26 Thread(s): SDaxpy Bandwidth (MB/s) is 96855.66
+Threading enabled, using 27 (of 40) Julia threads
+27 Thread(s): SDaxpy Bandwidth (MB/s) is 85282.63
+Threading enabled, using 28 (of 40) Julia threads
+28 Thread(s): SDaxpy Bandwidth (MB/s) is 82555.39
+Threading enabled, using 29 (of 40) Julia threads
+29 Thread(s): SDaxpy Bandwidth (MB/s) is 84764.12
+Threading enabled, using 30 (of 40) Julia threads
+30 Thread(s): SDaxpy Bandwidth (MB/s) is 82157.66
+Threading enabled, using 31 (of 40) Julia threads
+31 Thread(s): SDaxpy Bandwidth (MB/s) is 93671.86
+Threading enabled, using 32 (of 40) Julia threads
+32 Thread(s): SDaxpy Bandwidth (MB/s) is 81757.24
+Threading enabled, using 33 (of 40) Julia threads
+33 Thread(s): SDaxpy Bandwidth (MB/s) is 89992.49
+Threading enabled, using 34 (of 40) Julia threads
+34 Thread(s): SDaxpy Bandwidth (MB/s) is 81353.91
+Threading enabled, using 35 (of 40) Julia threads
+35 Thread(s): SDaxpy Bandwidth (MB/s) is 83190.7
+Threading enabled, using 36 (of 40) Julia threads
+36 Thread(s): SDaxpy Bandwidth (MB/s) is 81029.18
+Threading enabled, using 37 (of 40) Julia threads
+37 Thread(s): SDaxpy Bandwidth (MB/s) is 94104.17
+Threading enabled, using 38 (of 40) Julia threads
+38 Thread(s): SDaxpy Bandwidth (MB/s) is 80650.72
+Threading enabled, using 39 (of 40) Julia threads
+39 Thread(s): SDaxpy Bandwidth (MB/s) is 92529.63
+Threading enabled, using 40 (of 40) Julia threads
+40 Thread(s): SDaxpy Bandwidth (MB/s) is 80189.31
+
+
+Scaling results:
+┌───────────┬─────────────────────────┐
+│ # Threads │ SDaxpy Bandwidth (MB/s) │
+├───────────┼─────────────────────────┤
+│       1.0 │                 17081.1 │
+│       2.0 │                 34669.9 │
+│       3.0 │                 35022.9 │
+│       4.0 │                 44436.2 │
+│       5.0 │                 62332.1 │
+│       6.0 │                 60215.1 │
+│       7.0 │                 66292.0 │
+│       8.0 │                 70470.7 │
+│       9.0 │                 75158.9 │
+│      10.0 │                 77215.1 │
+│      11.0 │                 81214.0 │
+│      12.0 │                 81211.5 │
+│      13.0 │                 84594.4 │
+│      14.0 │                 83860.8 │
+│      15.0 │               1.49784e5 │
+│      16.0 │                 92811.2 │
+│      17.0 │                 87548.2 │
+│      18.0 │                 93615.2 │
+│      19.0 │                 87369.5 │
+│      20.0 │                 84259.9 │
+│      21.0 │               1.07076e5 │
+│      22.0 │                 83538.7 │
+│      23.0 │                 86164.5 │
+│      24.0 │                 83097.0 │
+│      25.0 │                 95062.6 │
+│      26.0 │                 96855.7 │
+│      27.0 │                 85282.6 │
+│      28.0 │                 82555.4 │
+│      29.0 │                 84764.1 │
+│      30.0 │                 82157.7 │
+│      31.0 │                 93671.9 │
+│      32.0 │                 81757.2 │
+│      33.0 │                 89992.5 │
+│      34.0 │                 81353.9 │
+│      35.0 │                 83190.7 │
+│      36.0 │                 81029.2 │
+│      37.0 │                 94104.2 │
+│      38.0 │                 80650.7 │
+│      39.0 │                 92529.6 │
+│      40.0 │                 80189.3 │
+└───────────┴─────────────────────────┘
+                  Bandwidth Scaling, Scattered Pinning    
+               +----------------------------------------+ 
+        200000 |                                        | 
+               |                                        | 
+               |                                        | 
+               |               .                        | 
+               |              ||                        | 
+               |              .\                        | 
+               |              |.     .                  | 
+   MB/s        |              ,|  . .\   _.    .     .  | 
+               |           __.| "/'-,|../ '._./\r\__/\r\| 
+               |       .r/"                             | 
+               |    ,*/`                                | 
+               |   .,                                   | 
+               | .-/                                    | 
+               | ,                                      | 
+             0 |                                        | 
+               +----------------------------------------+ 
+                0                                     40  
+                                 # cores                  
+flopsscaling():
+1 Thread(s): Triad Performance (MFlop/s) is 1571.5
+2 Thread(s): Triad Performance (MFlop/s) is 3137.64
+3 Thread(s): Triad Performance (MFlop/s) is 4791.43
+4 Thread(s): Triad Performance (MFlop/s) is 7394.48
+5 Thread(s): Triad Performance (MFlop/s) is 10490.84
+6 Thread(s): Triad Performance (MFlop/s) is 11096.85
+7 Thread(s): Triad Performance (MFlop/s) is 13818.7
+8 Thread(s): Triad Performance (MFlop/s) is 14738.48
+9 Thread(s): Triad Performance (MFlop/s) is 14737.33
+10 Thread(s): Triad Performance (MFlop/s) is 16836.46
+11 Thread(s): Triad Performance (MFlop/s) is 17041.6
+12 Thread(s): Triad Performance (MFlop/s) is 17951.67
+13 Thread(s): Triad Performance (MFlop/s) is 17849.54
+14 Thread(s): Triad Performance (MFlop/s) is 19000.73
+15 Thread(s): Triad Performance (MFlop/s) is 18356.01
+16 Thread(s): Triad Performance (MFlop/s) is 19812.21
+17 Thread(s): Triad Performance (MFlop/s) is 19656.94
+18 Thread(s): Triad Performance (MFlop/s) is 20400.75
+19 Thread(s): Triad Performance (MFlop/s) is 20348.22
+20 Thread(s): Triad Performance (MFlop/s) is 21152.89
+21 Thread(s): Triad Performance (MFlop/s) is 20410.57
+22 Thread(s): Triad Performance (MFlop/s) is 21509.4
+23 Thread(s): Triad Performance (MFlop/s) is 21564.58
+24 Thread(s): Triad Performance (MFlop/s) is 21961.94
+25 Thread(s): Triad Performance (MFlop/s) is 22351.42
+26 Thread(s): Triad Performance (MFlop/s) is 22427.05
+27 Thread(s): Triad Performance (MFlop/s) is 21881.01
+28 Thread(s): Triad Performance (MFlop/s) is 22750.51
+29 Thread(s): Triad Performance (MFlop/s) is 22414.54
+30 Thread(s): Triad Performance (MFlop/s) is 23226.48
+31 Thread(s): Triad Performance (MFlop/s) is 22749.92
+32 Thread(s): Triad Performance (MFlop/s) is 23040.37
+33 Thread(s): Triad Performance (MFlop/s) is 22210.12
+34 Thread(s): Triad Performance (MFlop/s) is 23316.32
+35 Thread(s): Triad Performance (MFlop/s) is 22629.52
+36 Thread(s): Triad Performance (MFlop/s) is 23091.88
+37 Thread(s): Triad Performance (MFlop/s) is 22865.44
+38 Thread(s): Triad Performance (MFlop/s) is 23019.37
+39 Thread(s): Triad Performance (MFlop/s) is 22432.16
+40 Thread(s): Triad Performance (MFlop/s) is 23172.52
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                      1571.5 │
+│       2.0 │                     3137.64 │
+│       3.0 │                     4791.43 │
+│       4.0 │                     7394.48 │
+│       5.0 │                     10490.8 │
+│       6.0 │                     11096.8 │
+│       7.0 │                     13818.7 │
+│       8.0 │                     14738.5 │
+│       9.0 │                     14737.3 │
+│      10.0 │                     16836.5 │
+│      11.0 │                     17041.6 │
+│      12.0 │                     17951.7 │
+│      13.0 │                     17849.5 │
+│      14.0 │                     19000.7 │
+│      15.0 │                     18356.0 │
+│      16.0 │                     19812.2 │
+│      17.0 │                     19656.9 │
+│      18.0 │                     20400.7 │
+│      19.0 │                     20348.2 │
+│      20.0 │                     21152.9 │
+│      21.0 │                     20410.6 │
+│      22.0 │                     21509.4 │
+│      23.0 │                     21564.6 │
+│      24.0 │                     21961.9 │
+│      25.0 │                     22351.4 │
+│      26.0 │                     22427.1 │
+│      27.0 │                     21881.0 │
+│      28.0 │                     22750.5 │
+│      29.0 │                     22414.5 │
+│      30.0 │                     23226.5 │
+│      31.0 │                     22749.9 │
+│      32.0 │                     23040.4 │
+│      33.0 │                     22210.1 │
+│      34.0 │                     23316.3 │
+│      35.0 │                     22629.5 │
+│      36.0 │                     23091.9 │
+│      37.0 │                     22865.4 │
+│      38.0 │                     23019.4 │
+│      39.0 │                     22432.2 │
+│      40.0 │                     23172.5 │
+└───────────┴─────────────────────────────┘
+                       Flops Scaling, Scattered Pinning      
+                  +----------------------------------------+ 
+            30000 |                                        | 
+                  |                                        | 
+                  |                                        | 
+                  |                        .__..r--..-r--.r| 
+                  |                 ._..r""`  `            | 
+                  |             ..r"'                      | 
+                  |         .-/"`                          | 
+   MFlops/s       |       .-`                              | 
+                  |      .`                                | 
+                  |    .r`                                 | 
+                  |    .                                   | 
+                  |   .`                                   | 
+                  |  .`                                    | 
+                  | ./                                     | 
+                0 | `                                      | 
+                  +----------------------------------------+ 
+                   0                                     40  
+                                    # cores                  
