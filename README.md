@@ -27,9 +27,13 @@ The package isn't registered (yet), so currently you need to
 
 before you can `using BandwidthBenchmark`.
 
-## Examples
+## Example Benchmarks
 
-The benchmark examples showcased below have been conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) and can be found in the [benchmark folder](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmark).
+All benchmarks:
+* [Emmy](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) @ [FAU](https://hpc.fau.de/): [benchmarks/emmy_fau](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/emmy_fau)
+* [Noctua](https://pc2.uni-paderborn.de/hpc-services/available-systems/noctua1/) @ [PC²](https://pc2.uni-paderborn.de/): [benchmarks/noctua_pc2](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/noctua_pc2)
+
+The benchmarks showcased in this README have been conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) because we could fix the CPU frequencies on this system.
 
 ## `bwbench`
 
@@ -80,7 +84,7 @@ When LIKWID.jl is loaded, `bwbench` will automatically try to use LIKWIDs Marker
 JULIA_EXCLUSIVE=1 likwid-perfctr -c 0-7 -g MEM_DP -m julia --project=. --math-mode=fast -t8 bwbench_likwid.jl
 ```
 
-one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmark/likwid/run_bwbench_likwid.out). Among other things, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
+one gets detailed information from hardware-performance counters: [example output](https://github.com/carstenbauer/BandwidthBenchmark.jl/blob/main/benchmarks/emmy_fau/likwid/run_bwbench_likwid.out). Among other things, we can use these values to check / prove that write allocates have happened. Inspecting the memory bandwith associated with read and write in the STRIAD region, extracted here for convenience,
 
 ```
 Memory read bandwidth [MBytes/s]  | 31721.7327
