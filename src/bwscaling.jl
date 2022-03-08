@@ -18,7 +18,7 @@ function bwscaling(; max_nthreads = Threads.nthreads(), kwargs...)
     return data
 end
 
-function flopscaling(; max_nthreads=Threads.nthreads())
+function flopsscaling(; max_nthreads=Threads.nthreads())
     triad_results = zeros(max_nthreads)
     for n in 1:max_nthreads
         # bench
