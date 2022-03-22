@@ -1,0 +1,495 @@
+cpu-bind=MASK - cn-0242, task  0  0 [1362561]: mask 0xffffffffff set
+Node: cn-0242
+
+----------------- Compact Pinning -----------------
+
+| 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
+  16,17,18,19 |
+| 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,
+  36,37,38,39 |
+
+# = Julia thread, | = Socket seperator
+
+Julia threads: 40
+├ Occupied CPU-threads: 40
+└ Mapping (Thread => CPUID): 1 => 0, 2 => 1, 3 => 2, 4 => 3, 5 => 4, ...
+
+Check compact pinning: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+
+bwbench():
+Threading enabled, using 40 (of 40) Julia threads
+Total allocated datasize: 3840.0 MB
+┌──────────┬─────────────┬────────────────┬────────────┬────────────┬────────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │   Avg time │   Min time │   Max time │
+│   String │     Float64 │        Float64 │    Float64 │    Float64 │    Float64 │
+├──────────┼─────────────┼────────────────┼────────────┼────────────┼────────────┤
+│     Init │    200045.0 │            0.0 │ 0.00965335 │ 0.00959784 │ 0.00999269 │
+│     Copy │   2.00829e5 │            0.0 │   0.015746 │  0.0143406 │  0.0259504 │
+│   Update │     2.004e5 │        12525.0 │  0.0132513 │ 0.00958086 │  0.0424103 │
+│    Triad │    200734.0 │        12545.9 │  0.0198658 │  0.0191298 │  0.0245977 │
+│    Daxpy │   2.07528e5 │        17294.0 │  0.0147365 │  0.0138777 │  0.0212482 │
+│   STriad │   2.05107e5 │        10255.3 │  0.0243615 │  0.0234025 │  0.0299477 │
+│   SDaxpy │   2.05704e5 │        12856.5 │  0.0212369 │  0.0186676 │  0.0404412 │
+└──────────┴─────────────┴────────────────┴────────────┴────────────┴────────────┘
+bwscaling():
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 17033.88
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 33191.19
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 48951.22
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 62092.55
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 71965.98
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 79349.32
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 85058.03
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 89918.75
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 94125.73
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 97406.69
+11 Thread(s): SDaxpy Bandwidth (MB/s) is 100018.36
+12 Thread(s): SDaxpy Bandwidth (MB/s) is 102157.06
+13 Thread(s): SDaxpy Bandwidth (MB/s) is 103228.79
+14 Thread(s): SDaxpy Bandwidth (MB/s) is 103817.66
+15 Thread(s): SDaxpy Bandwidth (MB/s) is 104193.77
+16 Thread(s): SDaxpy Bandwidth (MB/s) is 104067.82
+17 Thread(s): SDaxpy Bandwidth (MB/s) is 104105.19
+18 Thread(s): SDaxpy Bandwidth (MB/s) is 103943.13
+19 Thread(s): SDaxpy Bandwidth (MB/s) is 103747.39
+20 Thread(s): SDaxpy Bandwidth (MB/s) is 103420.92
+21 Thread(s): SDaxpy Bandwidth (MB/s) is 108741.22
+22 Thread(s): SDaxpy Bandwidth (MB/s) is 113882.99
+23 Thread(s): SDaxpy Bandwidth (MB/s) is 119278.5
+24 Thread(s): SDaxpy Bandwidth (MB/s) is 124413.37
+25 Thread(s): SDaxpy Bandwidth (MB/s) is 129430.38
+26 Thread(s): SDaxpy Bandwidth (MB/s) is 134530.04
+27 Thread(s): SDaxpy Bandwidth (MB/s) is 139863.88
+28 Thread(s): SDaxpy Bandwidth (MB/s) is 144823.42
+29 Thread(s): SDaxpy Bandwidth (MB/s) is 150245.43
+30 Thread(s): SDaxpy Bandwidth (MB/s) is 155196.53
+31 Thread(s): SDaxpy Bandwidth (MB/s) is 160653.77
+32 Thread(s): SDaxpy Bandwidth (MB/s) is 165794.99
+33 Thread(s): SDaxpy Bandwidth (MB/s) is 171417.14
+34 Thread(s): SDaxpy Bandwidth (MB/s) is 175504.62
+35 Thread(s): SDaxpy Bandwidth (MB/s) is 181395.72
+36 Thread(s): SDaxpy Bandwidth (MB/s) is 186760.49
+37 Thread(s): SDaxpy Bandwidth (MB/s) is 191817.55
+38 Thread(s): SDaxpy Bandwidth (MB/s) is 197071.97
+39 Thread(s): SDaxpy Bandwidth (MB/s) is 201748.44
+40 Thread(s): SDaxpy Bandwidth (MB/s) is 206106.58
+
+
+Scaling results:
+┌───────────┬─────────────────────────┐
+│ # Threads │ SDaxpy Bandwidth (MB/s) │
+├───────────┼─────────────────────────┤
+│       1.0 │                 17033.9 │
+│       2.0 │                 33191.2 │
+│       3.0 │                 48951.2 │
+│       4.0 │                 62092.5 │
+│       5.0 │                 71966.0 │
+│       6.0 │                 79349.3 │
+│       7.0 │                 85058.0 │
+│       8.0 │                 89918.7 │
+│       9.0 │                 94125.7 │
+│      10.0 │                 97406.7 │
+│      11.0 │               1.00018e5 │
+│      12.0 │               1.02157e5 │
+│      13.0 │               1.03229e5 │
+│      14.0 │               1.03818e5 │
+│      15.0 │               1.04194e5 │
+│      16.0 │               1.04068e5 │
+│      17.0 │               1.04105e5 │
+│      18.0 │               1.03943e5 │
+│      19.0 │               1.03747e5 │
+│      20.0 │               1.03421e5 │
+│      21.0 │               1.08741e5 │
+│      22.0 │                113883.0 │
+│      23.0 │               1.19278e5 │
+│      24.0 │               1.24413e5 │
+│      25.0 │                1.2943e5 │
+│      26.0 │                134530.0 │
+│      27.0 │               1.39864e5 │
+│      28.0 │               1.44823e5 │
+│      29.0 │               1.50245e5 │
+│      30.0 │               1.55197e5 │
+│      31.0 │               1.60654e5 │
+│      32.0 │                165795.0 │
+│      33.0 │               1.71417e5 │
+│      34.0 │               1.75505e5 │
+│      35.0 │               1.81396e5 │
+│      36.0 │                1.8676e5 │
+│      37.0 │               1.91818e5 │
+│      38.0 │                197072.0 │
+│      39.0 │               2.01748e5 │
+│      40.0 │               2.06107e5 │
+└───────────┴─────────────────────────┘
+                   Bandwidth Scaling, Compact Pinning     
+               +----------------------------------------+ 
+        300000 |                                        | 
+               |                                        | 
+               |                                        | 
+               |                                        | 
+               |                                      ._| 
+               |                                   _-/' | 
+               |                               _r*"     | 
+   MB/s        |                           ..*"         | 
+               |                       ..-"`            | 
+               |           _________.-"`                | 
+               |      .r-""                             | 
+               |    ./`                                 | 
+               |  .*                                    | 
+               | ./                                     | 
+             0 | `                                      | 
+               +----------------------------------------+ 
+                0                                     40  
+                                 # cores                  
+flopsscaling():
+1 Thread(s): Triad Performance (MFlop/s) is 1568.82
+2 Thread(s): Triad Performance (MFlop/s) is 3654.83
+3 Thread(s): Triad Performance (MFlop/s) is 5388.55
+4 Thread(s): Triad Performance (MFlop/s) is 7204.82
+5 Thread(s): Triad Performance (MFlop/s) is 8581.87
+6 Thread(s): Triad Performance (MFlop/s) is 8888.78
+7 Thread(s): Triad Performance (MFlop/s) is 9456.05
+8 Thread(s): Triad Performance (MFlop/s) is 10439.72
+9 Thread(s): Triad Performance (MFlop/s) is 10283.32
+10 Thread(s): Triad Performance (MFlop/s) is 10692.8
+11 Thread(s): Triad Performance (MFlop/s) is 11070.09
+12 Thread(s): Triad Performance (MFlop/s) is 11372.63
+13 Thread(s): Triad Performance (MFlop/s) is 11548.72
+14 Thread(s): Triad Performance (MFlop/s) is 12032.96
+15 Thread(s): Triad Performance (MFlop/s) is 11928.56
+16 Thread(s): Triad Performance (MFlop/s) is 12023.29
+17 Thread(s): Triad Performance (MFlop/s) is 12128.37
+18 Thread(s): Triad Performance (MFlop/s) is 12111.47
+19 Thread(s): Triad Performance (MFlop/s) is 12103.26
+20 Thread(s): Triad Performance (MFlop/s) is 12281.83
+21 Thread(s): Triad Performance (MFlop/s) is 12735.1
+22 Thread(s): Triad Performance (MFlop/s) is 13404.05
+23 Thread(s): Triad Performance (MFlop/s) is 14109.59
+24 Thread(s): Triad Performance (MFlop/s) is 14667.91
+25 Thread(s): Triad Performance (MFlop/s) is 15258.88
+26 Thread(s): Triad Performance (MFlop/s) is 16062.21
+27 Thread(s): Triad Performance (MFlop/s) is 16463.88
+28 Thread(s): Triad Performance (MFlop/s) is 17120.29
+29 Thread(s): Triad Performance (MFlop/s) is 17886.94
+30 Thread(s): Triad Performance (MFlop/s) is 18441.65
+31 Thread(s): Triad Performance (MFlop/s) is 19004.12
+32 Thread(s): Triad Performance (MFlop/s) is 19889.78
+33 Thread(s): Triad Performance (MFlop/s) is 20272.15
+34 Thread(s): Triad Performance (MFlop/s) is 20938.64
+35 Thread(s): Triad Performance (MFlop/s) is 21612.67
+36 Thread(s): Triad Performance (MFlop/s) is 22194.71
+37 Thread(s): Triad Performance (MFlop/s) is 22815.81
+38 Thread(s): Triad Performance (MFlop/s) is 23707.61
+39 Thread(s): Triad Performance (MFlop/s) is 24114.9
+40 Thread(s): Triad Performance (MFlop/s) is 24463.44
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                     1568.82 │
+│       2.0 │                     3654.83 │
+│       3.0 │                     5388.55 │
+│       4.0 │                     7204.82 │
+│       5.0 │                     8581.87 │
+│       6.0 │                     8888.78 │
+│       7.0 │                     9456.05 │
+│       8.0 │                     10439.7 │
+│       9.0 │                     10283.3 │
+│      10.0 │                     10692.8 │
+│      11.0 │                     11070.1 │
+│      12.0 │                     11372.6 │
+│      13.0 │                     11548.7 │
+│      14.0 │                     12033.0 │
+│      15.0 │                     11928.6 │
+│      16.0 │                     12023.3 │
+│      17.0 │                     12128.4 │
+│      18.0 │                     12111.5 │
+│      19.0 │                     12103.3 │
+│      20.0 │                     12281.8 │
+│      21.0 │                     12735.1 │
+│      22.0 │                     13404.0 │
+│      23.0 │                     14109.6 │
+│      24.0 │                     14667.9 │
+│      25.0 │                     15258.9 │
+│      26.0 │                     16062.2 │
+│      27.0 │                     16463.9 │
+│      28.0 │                     17120.3 │
+│      29.0 │                     17886.9 │
+│      30.0 │                     18441.6 │
+│      31.0 │                     19004.1 │
+│      32.0 │                     19889.8 │
+│      33.0 │                     20272.2 │
+│      34.0 │                     20938.6 │
+│      35.0 │                     21612.7 │
+│      36.0 │                     22194.7 │
+│      37.0 │                     22815.8 │
+│      38.0 │                     23707.6 │
+│      39.0 │                     24114.9 │
+│      40.0 │                     24463.4 │
+└───────────┴─────────────────────────────┘
+                        Flops Scaling, Compact Pinning       
+                  +----------------------------------------+ 
+            30000 |                                        | 
+                  |                                        | 
+                  |                                       _| 
+                  |                                   ._*" | 
+                  |                                ..*'    | 
+                  |                             ..*`       | 
+                  |                          _r/`          | 
+   MFlops/s       |                       _-/              | 
+                  |              . _____-"                 | 
+                  |       .__--""'"                        | 
+                  |    .r-'                                | 
+                  |   ./                                   | 
+                  |  .'                                    | 
+                  | /`                                     | 
+                0 | `                                      | 
+                  +----------------------------------------+ 
+                   0                                     40  
+                                    # cores                  
+----------------- Scatter Pinning -----------------
+
+| 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
+  16,17,18,19 |
+| 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,
+  36,37,38,39 |
+
+# = Julia thread, | = Socket seperator
+
+Julia threads: 40
+├ Occupied CPU-threads: 40
+└ Mapping (Thread => CPUID): 1 => 0, 2 => 20, 3 => 1, 4 => 21, 5 => 2, ...
+
+Check scatter pinning: [0, 20, 1, 21, 2, 22, 3, 23, 4, 24, 5, 25, 6, 26, 7, 27, 8, 28, 9, 29, 10, 30, 11, 31, 12, 32, 13, 33, 14, 34, 15, 35, 16, 36, 17, 37, 18, 38, 19, 39]
+
+bwbench():
+Threading enabled, using 40 (of 40) Julia threads
+Total allocated datasize: 3840.0 MB
+┌──────────┬─────────────┬────────────────┬────────────┬────────────┬────────────┐
+│ Function │ Rate (MB/s) │ Rate (MFlop/s) │   Avg time │   Min time │   Max time │
+│   String │     Float64 │        Float64 │    Float64 │    Float64 │    Float64 │
+├──────────┼─────────────┼────────────────┼────────────┼────────────┼────────────┤
+│     Init │   1.98059e5 │            0.0 │ 0.00972177 │  0.0096941 │ 0.00973944 │
+│     Copy │   1.92493e5 │            0.0 │  0.0150007 │  0.0149616 │   0.015046 │
+│   Update │   1.98124e5 │        12382.8 │  0.0096995 │ 0.00969088 │ 0.00971457 │
+│    Triad │   1.90296e5 │        11893.5 │  0.0202265 │  0.0201791 │  0.0202776 │
+│    Daxpy │    198586.0 │        16548.8 │   0.014644 │  0.0145025 │  0.0150889 │
+│   STriad │   1.94979e5 │        9748.95 │  0.0249049 │   0.024618 │  0.0265922 │
+│   SDaxpy │   1.96745e5 │        12296.5 │  0.0197377 │  0.0195177 │  0.0212971 │
+└──────────┴─────────────┴────────────────┴────────────┴────────────┴────────────┘
+bwscaling():
+1 Thread(s): SDaxpy Bandwidth (MB/s) is 17032.89
+2 Thread(s): SDaxpy Bandwidth (MB/s) is 34107.94
+3 Thread(s): SDaxpy Bandwidth (MB/s) is 49804.61
+4 Thread(s): SDaxpy Bandwidth (MB/s) is 66614.62
+5 Thread(s): SDaxpy Bandwidth (MB/s) is 81617.45
+6 Thread(s): SDaxpy Bandwidth (MB/s) is 97719.98
+7 Thread(s): SDaxpy Bandwidth (MB/s) is 108063.51
+8 Thread(s): SDaxpy Bandwidth (MB/s) is 123853.69
+9 Thread(s): SDaxpy Bandwidth (MB/s) is 129238.2
+10 Thread(s): SDaxpy Bandwidth (MB/s) is 143834.1
+11 Thread(s): SDaxpy Bandwidth (MB/s) is 145653.49
+12 Thread(s): SDaxpy Bandwidth (MB/s) is 158414.38
+13 Thread(s): SDaxpy Bandwidth (MB/s) is 157231.98
+14 Thread(s): SDaxpy Bandwidth (MB/s) is 169616.03
+15 Thread(s): SDaxpy Bandwidth (MB/s) is 168388.52
+16 Thread(s): SDaxpy Bandwidth (MB/s) is 179384.69
+17 Thread(s): SDaxpy Bandwidth (MB/s) is 175822.33
+18 Thread(s): SDaxpy Bandwidth (MB/s) is 185040.32
+19 Thread(s): SDaxpy Bandwidth (MB/s) is 182470.59
+20 Thread(s): SDaxpy Bandwidth (MB/s) is 190634.83
+21 Thread(s): SDaxpy Bandwidth (MB/s) is 187615.39
+22 Thread(s): SDaxpy Bandwidth (MB/s) is 195955.16
+23 Thread(s): SDaxpy Bandwidth (MB/s) is 190565.23
+24 Thread(s): SDaxpy Bandwidth (MB/s) is 198307.43
+25 Thread(s): SDaxpy Bandwidth (MB/s) is 192675.81
+26 Thread(s): SDaxpy Bandwidth (MB/s) is 201026.01
+27 Thread(s): SDaxpy Bandwidth (MB/s) is 194584.69
+28 Thread(s): SDaxpy Bandwidth (MB/s) is 201465.69
+29 Thread(s): SDaxpy Bandwidth (MB/s) is 192733.15
+30 Thread(s): SDaxpy Bandwidth (MB/s) is 199189.93
+31 Thread(s): SDaxpy Bandwidth (MB/s) is 192733.67
+32 Thread(s): SDaxpy Bandwidth (MB/s) is 200423.98
+33 Thread(s): SDaxpy Bandwidth (MB/s) is 191956.19
+34 Thread(s): SDaxpy Bandwidth (MB/s) is 199007.57
+35 Thread(s): SDaxpy Bandwidth (MB/s) is 191738.77
+36 Thread(s): SDaxpy Bandwidth (MB/s) is 197279.95
+37 Thread(s): SDaxpy Bandwidth (MB/s) is 189906.25
+38 Thread(s): SDaxpy Bandwidth (MB/s) is 197004.91
+39 Thread(s): SDaxpy Bandwidth (MB/s) is 189306.82
+40 Thread(s): SDaxpy Bandwidth (MB/s) is 196793.47
+
+
+Scaling results:
+┌───────────┬─────────────────────────┐
+│ # Threads │ SDaxpy Bandwidth (MB/s) │
+├───────────┼─────────────────────────┤
+│       1.0 │                 17032.9 │
+│       2.0 │                 34107.9 │
+│       3.0 │                 49804.6 │
+│       4.0 │                 66614.6 │
+│       5.0 │                 81617.4 │
+│       6.0 │                 97720.0 │
+│       7.0 │               1.08064e5 │
+│       8.0 │               1.23854e5 │
+│       9.0 │               1.29238e5 │
+│      10.0 │               1.43834e5 │
+│      11.0 │               1.45653e5 │
+│      12.0 │               1.58414e5 │
+│      13.0 │                157232.0 │
+│      14.0 │                169616.0 │
+│      15.0 │               1.68389e5 │
+│      16.0 │               1.79385e5 │
+│      17.0 │               1.75822e5 │
+│      18.0 │                1.8504e5 │
+│      19.0 │               1.82471e5 │
+│      20.0 │               1.90635e5 │
+│      21.0 │               1.87615e5 │
+│      22.0 │               1.95955e5 │
+│      23.0 │               1.90565e5 │
+│      24.0 │               1.98307e5 │
+│      25.0 │               1.92676e5 │
+│      26.0 │                201026.0 │
+│      27.0 │               1.94585e5 │
+│      28.0 │               2.01466e5 │
+│      29.0 │               1.92733e5 │
+│      30.0 │                1.9919e5 │
+│      31.0 │               1.92734e5 │
+│      32.0 │                200424.0 │
+│      33.0 │               1.91956e5 │
+│      34.0 │               1.99008e5 │
+│      35.0 │               1.91739e5 │
+│      36.0 │                197280.0 │
+│      37.0 │               1.89906e5 │
+│      38.0 │               1.97005e5 │
+│      39.0 │               1.89307e5 │
+│      40.0 │               1.96793e5 │
+└───────────┴─────────────────────────┘
+                  Bandwidth Scaling, Scattered Pinning    
+               +----------------------------------------+ 
+        300000 |                                        | 
+               |                                        | 
+               |                                        | 
+               |                                        | 
+               |                          . .   .       | 
+               |                 ._.--\*"/'"'/"/'/"/\*\*| 
+               |             .-*"'                      | 
+   MB/s        |          _/"`                          | 
+               |        ./                              | 
+               |      .*                                | 
+               |     r`                                 | 
+               |   ./                                   | 
+               |  ./                                    | 
+               | .'                                     | 
+             0 | `                                      | 
+               +----------------------------------------+ 
+                0                                     40  
+                                 # cores                  
+flopsscaling():
+1 Thread(s): Triad Performance (MFlop/s) is 1568.37
+2 Thread(s): Triad Performance (MFlop/s) is 3122.99
+3 Thread(s): Triad Performance (MFlop/s) is 4706.51
+4 Thread(s): Triad Performance (MFlop/s) is 7331.64
+5 Thread(s): Triad Performance (MFlop/s) is 9075.18
+6 Thread(s): Triad Performance (MFlop/s) is 11917.43
+7 Thread(s): Triad Performance (MFlop/s) is 12353.61
+8 Thread(s): Triad Performance (MFlop/s) is 14235.7
+9 Thread(s): Triad Performance (MFlop/s) is 14788.62
+10 Thread(s): Triad Performance (MFlop/s) is 16549.54
+11 Thread(s): Triad Performance (MFlop/s) is 16355.44
+12 Thread(s): Triad Performance (MFlop/s) is 18499.63
+13 Thread(s): Triad Performance (MFlop/s) is 17403.08
+14 Thread(s): Triad Performance (MFlop/s) is 18912.75
+15 Thread(s): Triad Performance (MFlop/s) is 18504.3
+16 Thread(s): Triad Performance (MFlop/s) is 19950.26
+17 Thread(s): Triad Performance (MFlop/s) is 19295.14
+18 Thread(s): Triad Performance (MFlop/s) is 20862.15
+19 Thread(s): Triad Performance (MFlop/s) is 20147.73
+20 Thread(s): Triad Performance (MFlop/s) is 21485.53
+21 Thread(s): Triad Performance (MFlop/s) is 20381.11
+22 Thread(s): Triad Performance (MFlop/s) is 21831.03
+23 Thread(s): Triad Performance (MFlop/s) is 21421.75
+24 Thread(s): Triad Performance (MFlop/s) is 22996.12
+25 Thread(s): Triad Performance (MFlop/s) is 21767.18
+26 Thread(s): Triad Performance (MFlop/s) is 22928.66
+27 Thread(s): Triad Performance (MFlop/s) is 22021.36
+28 Thread(s): Triad Performance (MFlop/s) is 23143.37
+29 Thread(s): Triad Performance (MFlop/s) is 22236.19
+30 Thread(s): Triad Performance (MFlop/s) is 23572.62
+31 Thread(s): Triad Performance (MFlop/s) is 22506.34
+32 Thread(s): Triad Performance (MFlop/s) is 23484.67
+33 Thread(s): Triad Performance (MFlop/s) is 22402.53
+34 Thread(s): Triad Performance (MFlop/s) is 23496.28
+35 Thread(s): Triad Performance (MFlop/s) is 22465.67
+36 Thread(s): Triad Performance (MFlop/s) is 23369.48
+37 Thread(s): Triad Performance (MFlop/s) is 22623.3
+38 Thread(s): Triad Performance (MFlop/s) is 23611.73
+39 Thread(s): Triad Performance (MFlop/s) is 22381.12
+40 Thread(s): Triad Performance (MFlop/s) is 23207.87
+
+
+Scaling results:
+┌───────────┬─────────────────────────────┐
+│ # Threads │ Triad Performance (MFlop/s) │
+├───────────┼─────────────────────────────┤
+│       1.0 │                     1568.37 │
+│       2.0 │                     3122.99 │
+│       3.0 │                     4706.51 │
+│       4.0 │                     7331.64 │
+│       5.0 │                     9075.18 │
+│       6.0 │                     11917.4 │
+│       7.0 │                     12353.6 │
+│       8.0 │                     14235.7 │
+│       9.0 │                     14788.6 │
+│      10.0 │                     16549.5 │
+│      11.0 │                     16355.4 │
+│      12.0 │                     18499.6 │
+│      13.0 │                     17403.1 │
+│      14.0 │                     18912.7 │
+│      15.0 │                     18504.3 │
+│      16.0 │                     19950.3 │
+│      17.0 │                     19295.1 │
+│      18.0 │                     20862.2 │
+│      19.0 │                     20147.7 │
+│      20.0 │                     21485.5 │
+│      21.0 │                     20381.1 │
+│      22.0 │                     21831.0 │
+│      23.0 │                     21421.7 │
+│      24.0 │                     22996.1 │
+│      25.0 │                     21767.2 │
+│      26.0 │                     22928.7 │
+│      27.0 │                     22021.4 │
+│      28.0 │                     23143.4 │
+│      29.0 │                     22236.2 │
+│      30.0 │                     23572.6 │
+│      31.0 │                     22506.3 │
+│      32.0 │                     23484.7 │
+│      33.0 │                     22402.5 │
+│      34.0 │                     23496.3 │
+│      35.0 │                     22465.7 │
+│      36.0 │                     23369.5 │
+│      37.0 │                     22623.3 │
+│      38.0 │                     23611.7 │
+│      39.0 │                     22381.1 │
+│      40.0 │                     23207.9 │
+└───────────┴─────────────────────────────┘
+                       Flops Scaling, Scattered Pinning      
+                  +----------------------------------------+ 
+            30000 |                                        | 
+                  |                                        | 
+                  |                                        | 
+                  |                       ......r*r*r*r*r*.| 
+                  |                 ...*/"' `              | 
+                  |           ..../"/                      | 
+                  |          _,"'                          | 
+   MFlops/s       |        _/                              | 
+                  |      ./                                | 
+                  |     .`                                 | 
+                  |    .`                                  | 
+                  |   ./                                   | 
+                  |  .`                                    | 
+                  | ./                                     | 
+                0 | `                                      | 
+                  +----------------------------------------+ 
+                   0                                     40  
+                                    # cores                  
