@@ -38,6 +38,16 @@ function bwbench(;
         ),
     )
 
+    # compute thread_indices
+    # use only first `nthreads` threads, i.e. @threads for tid in 1:nthreads + manual splitting
+    Nperthread = floor(Int, N / nthreads)
+    rest = rem(N, nthreads)
+    thread_indices = collect(Iterators.partition(1:N, Nperthread))
+    if rest != 0
+        # last thread compensates for the nonzero remainder
+        thread_indices[end-1] = thread_indices[end-1].start:thread_indices[end].stop
+    end
+
     # (maybe) initialize LIKWID Marker API
     LIKWID_init()
 
@@ -48,25 +58,27 @@ function bwbench(;
     d = allocate(Float64, N, alignment)
     scalar = 3.0
 
-    # initialize data
-    for i in eachindex(a)
-        a[i] = 2.0
-        b[i] = 2.0
-        c[i] = 0.5
-        d[i] = 1.0
+    # initialize data in parallel (important for NUMA / first-touch policy)
+    @threads :static for tid in 1:nthreads
+        @inbounds for i in thread_indices[tid]
+            a[i] = 2.0
+            b[i] = 2.0
+            c[i] = 0.5
+            d[i] = 1.0
+        end
     end
 
     # print information
-    nthreads > 1 && println("Threading enabled, using $nthreads (of $(Threads.nthreads())) Julia threads")
     if verbose
+        nthreads > 1 && println("Threading enabled, using $nthreads (of $(Threads.nthreads())) Julia threads")
         alloc = 4.0 * sizeof(Float64) * N * 1.0e-06
         println("Total allocated datasize: $(alloc) MB")
 
-        if Sys.islinux()
-            @threads :static for i in 1:nthreads
-                println("\tThread $i running on core $(get_core_id()).")
-            end
-        end
+        # if Sys.islinux()
+        #     @threads :static for i in 1:nthreads
+        #         println("\tThread $i running on core $(get_core_id()).")
+        #     end
+        # end
     end
 
     # (maybe) register LIKWID Marker regions
@@ -79,24 +91,10 @@ function bwbench(;
         LIKWID_register("STRIAD")
         LIKWID_register("SDAXPY")
     end
-
+    
     # perform measurement
-    if false # nthreads == Threads.nthreads()
-        # use all Julia threads, i.e. regular @threads
-        times = _run_benchmark(init_kernel_allthreads, copy_kernel_allthreads, update_kernel_allthreads, triad_kernel_allthreads, daxpy_kernel_allthreads, striad_kernel_allthreads, sdaxpy_kernel_allthreads,
-                               a, b, c, d, scalar; niter=niter, nthreads=nthreads)
-    else
-        # use only first `nthreads` threads, i.e. @threads for tid in 1:nthreads + manual splitting
-        Nperthread = floor(Int, N / nthreads)
-        rest = rem(N, nthreads)
-        thread_indices = collect(Iterators.partition(1:N, Nperthread))
-        if rest != 0
-            # last thread compensates for the nonzero remainder
-            thread_indices[end-1] = thread_indices[end-1].start:thread_indices[end].stop
-        end
-        times = _run_benchmark(init_kernel, copy_kernel, update_kernel, triad_kernel, daxpy_kernel, striad_kernel, sdaxpy_kernel,
-                               a, b, c, d, scalar; niter=niter, thread_indices=thread_indices, nthreads=nthreads)
-    end
+    times = _run_benchmark(init_kernel, copy_kernel, update_kernel, triad_kernel, daxpy_kernel, striad_kernel, sdaxpy_kernel,
+                            a, b, c, d, scalar; niter=niter, thread_indices=thread_indices, nthreads=nthreads)
 
     # analysis / table output of results
     results = DataFrame(;
