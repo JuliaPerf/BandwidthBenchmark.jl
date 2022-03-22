@@ -31,7 +31,8 @@ before you can `using BandwidthBenchmark`.
 
 All benchmarks:
 * [Emmy](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) @ [FAU](https://hpc.fau.de/): [benchmarks/emmy_fau](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/emmy_fau)
-* [Noctua](https://pc2.uni-paderborn.de/hpc-services/available-systems/noctua1/) @ [PC²](https://pc2.uni-paderborn.de/): [benchmarks/noctua_pc2](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/noctua_pc2)
+* [Noctua1](https://pc2.uni-paderborn.de/hpc-services/available-systems/noctua1/) @ [PC²](https://pc2.uni-paderborn.de/): [benchmarks/noctua_pc2](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/noctua_pc2/bwbench/)
+* [Noctua2](https://pc2.uni-paderborn.de/hpc-services/available-systems/noctua1/) @ [PC²](https://pc2.uni-paderborn.de/): [benchmarks/noctua_pc2](https://github.com/carstenbauer/BandwidthBenchmark.jl/tree/main/benchmarks/noctua2_pc2/bwbench/)
 
 The benchmarks showcased in this README have been conducted on the [Emmy cluster at NHR@FAU](https://hpc.fau.de/systems-services/systems-documentation-instructions/clusters/emmy-cluster/) because we could fix the CPU frequencies on this system.
 
