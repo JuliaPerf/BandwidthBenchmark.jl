@@ -1,0 +1,4 @@
+[deps]
+BandwidthBenchmark = "68eb07c1-04fd-4e62-9736-d6127c4c03c6"
+ThreadPinning = "811555cd-349b-4f26-b7bc-1f208b848042"
+UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
