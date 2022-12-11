@@ -8,13 +8,17 @@ end
 
 const BENCHMARKS = [
     Benchmark("Init", 1, 0, 2.0),
-    Benchmark("Copy", 2, 0, 3/2),
+    Benchmark("Copy", 2, 0, 3 / 2),
     Benchmark("Update", 2, 1, 1.0),
-    Benchmark("Triad", 3, 2, 4/3),
+    Benchmark("Triad", 3, 2, 4 / 3),
     Benchmark("Daxpy", 3, 2, 1.0),
-    Benchmark("STriad", 4, 2, 5/4),
+    Benchmark("STriad", 4, 2, 5 / 4),
     Benchmark("SDaxpy", 4, 2, 1.0)
 ]
+
+function benchmarkindex(bench)
+    return findfirst(x -> lowercase(x.label) == lowercase(string(bench)), BENCHMARKS)
+end
 
 const NBENCH = length(BENCHMARKS)
 

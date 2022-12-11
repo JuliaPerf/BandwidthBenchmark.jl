@@ -1,20 +1,27 @@
 """
 Uses `bwbench()` to measure the memory bandwidth for an increasing number of threads (`1:max_nthreads`).
+The kernel to be used (default: SDAXPY) can be specified via the `kernel` keyword argument.
 """
-function bwscaling(; max_nthreads = Threads.nthreads(), kwargs...)
-    max_nthreads ≤ Threads.nthreads() || throw(ArgumentError("max_nthreads must be ≤ Threads.nthreads()."))
-    sdaxpy_results = zeros(max_nthreads)
+function bwscaling(; max_nthreads=Threads.nthreads(), kernel=:sdaxpy, kwargs...)
+    bidx = benchmarkindex(kernel)
+    if max_nthreads > Threads.nthreads()
+        throw(ArgumentError("max_nthreads must be ≤ Threads.nthreads()."))
+    elseif isnothing(bidx)
+        throw(ArgumentError("Unknown kernel. Supported arguments are $(join(lowercase.(getproperty.(BENCHMARKS, :label)), ", "))"))
+    end
+    blabel = uppercase(string(kernel))
+    results = zeros(max_nthreads)
     for n in 1:max_nthreads
         df = bwbench(; nthreads=n, kwargs...)
-        sdaxpy_results[n] = last(df.var"Rate (MB/s)")
-        println("$n Thread(s): SDaxpy Bandwidth (MB/s) is ", round(sdaxpy_results[n], digits=2))
+        results[n] = df.var"Rate (MB/s)"[bidx]
+        println("$n Thread(s): $(blabel) Bandwidth (MB/s) is ", round(results[n], digits=2))
         flush(stdout)
     end
 
     # print results
     println("\n\nScaling results:")
-    data = hcat(1:max_nthreads, sdaxpy_results)
-    pretty_table(data; header=["# Threads", "SDaxpy Bandwidth (MB/s)"])    
+    data = hcat(1:max_nthreads, results)
+    pretty_table(data; header=["# Threads", "$(blabel) Bandwidth (MB/s)"])
     return data
 end
 
