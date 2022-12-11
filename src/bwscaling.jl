@@ -15,7 +15,7 @@ function bwscaling(; max_nthreads=Threads.nthreads(), kwargs...)
     # print results
     println("\n\nScaling results:")
     data = hcat(1:max_nthreads, results)
-    pretty_table(data; header=vcat(["# Threads"], [b.label for b in BENCHMARKS])) #" (MB/s)"
+    pretty_table(data; header=(vcat(["# Threads"], [b.label for b in BENCHMARKS]), vcat([""],["MB/s" for i in 1:NBENCH])))
     return data
 end
 
