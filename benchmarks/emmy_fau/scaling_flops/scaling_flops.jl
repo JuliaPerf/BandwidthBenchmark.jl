@@ -4,7 +4,7 @@ using BandwidthBenchmark
 using UnicodePlots
 
 Threads.@threads :static for i in 1:Threads.nthreads()
-    println("Thread $i running on core $(BandwidthBenchmark.get_core_id())")
+    println("Thread $i running on core $(BandwidthBenchmark.ThreadPinning.getcpuid())")
 end
 println()
 

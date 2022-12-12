@@ -21,11 +21,7 @@ Note, that we do not (yet) include the sum reduction in this Julia package.
 
 ## Installation
 
-The package isn't registered (yet), so currently you need to
-
-`] add https://github.com/carstenbauer/BandwidthBenchmark.jl`
-
-before you can `using BandwidthBenchmark`.
+`] add BandwidthBenchmark`
 
 ## Example Benchmarks
 
@@ -178,6 +174,17 @@ Scaling results:
                1                                     10  
                                 # cores                  
 ```
+
+## `bwscaling_memory_domains`
+
+Use `bwscaling_memory_domains()` (instead of `bwscaling` above) to measure the memory bandwidth across memory domains (NUMA). Returns a `DataFrame` in which each row contains the kernel name,
+the number of threads per memory domain, the number of domains considered, and the
+measured memory bandwidth (in MB/s).
+
+**Keyword arguments:**
+
+* `max_nnuma` (default: `ThreadPinning.nnuma()`): maximum number of memory domains to consider
+* `max_nthreads` (default: `maximum(ThreadPinning.ncores_per_numa())`): maximum number of threads per memory domain to consider
 
 ## `flopsscaling`
 

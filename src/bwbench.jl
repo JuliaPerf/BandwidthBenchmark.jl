@@ -73,12 +73,6 @@ function bwbench(;
         nthreads > 1 && println("Threading enabled, using $nthreads (of $(Threads.nthreads())) Julia threads")
         alloc = 4.0 * sizeof(Float64) * N * 1.0e-06
         println("Total allocated datasize: $(alloc) MB")
-
-        # if Sys.islinux()
-        #     @threads :static for i in 1:nthreads
-        #         println("\tThread $i running on core $(get_core_id()).")
-        #     end
-        # end
     end
 
     # (maybe) register LIKWID Marker regions
@@ -91,7 +85,7 @@ function bwbench(;
         LIKWID_register("STRIAD")
         LIKWID_register("SDAXPY")
     end
-    
+
     # perform measurement
     times = _run_benchmark(init_kernel, copy_kernel, update_kernel, triad_kernel, daxpy_kernel, striad_kernel, sdaxpy_kernel,
                             a, b, c, d, scalar; niter=niter, thread_indices=thread_indices, nthreads=nthreads)

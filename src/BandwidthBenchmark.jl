@@ -20,7 +20,6 @@ LIKWID_close() = nothing
 
 # includes
 include("allocate.jl")
-include("affinity.jl")
 include("benchmarks.jl")
 include("bwbench.jl")
 include("bwscaling.jl")
