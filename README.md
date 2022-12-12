@@ -1,5 +1,8 @@
 # BandwidthBenchmark.jl
 
+[![CI@PC2](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/badges/master/pipeline.svg?key_text=CI@PC2)](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/-/pipelines)
+[![Coverage](https://codecov.io/gh/JuliaPerf/BandwidthBenchmark.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaPerf/BandwidthBenchmark.jl)
+
 *Measuring memory bandwidth using streaming kernels*
 
 [TheBandwidthBenchmark](https://github.com/RRZE-HPC/TheBandwidthBenchmark) as a Julia package.
