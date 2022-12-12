@@ -40,7 +40,6 @@ function bwscaling_memory_domains(; kwargs...)
     filter!.(!ishyperthread, numacpuids) # drop hyperthreads
     NNUMA = nnuma()
     NCORES_PER_NUMA = first(ncores_per_numa())
-    # results = zeros(NCORES_PER_NUMA, NNUMA, NBENCH)
     results = DataFrame(;
         Function=String[],
         var"# Threads per domain"=Int64[],
@@ -58,7 +57,6 @@ function bwscaling_memory_domains(; kwargs...)
             # run benchmark (all kernels)
             df = bwbench(; nthreads=total_nthreads, kwargs...)
             # store and print result
-            # results[nt, nn, :] .= df.var"Rate (MB/s)"
             for row in eachrow(df)
                 push!(results, [row.Function, nt, nn, row.var"Rate (MB/s)"])
             end
