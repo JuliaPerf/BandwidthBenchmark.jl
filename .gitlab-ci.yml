@@ -1,0 +1,41 @@
+stages:
+  - test
+  - coverage
+
+julia/1.8.3:
+  stage: test
+  tags:
+    - bauerc-noctua
+  variables:
+    SCHEDULER_PARAMETERS: "-N 1 -n 1 -c 40 -t 00:15:00 -A pc2-mitarbeiter -p all --exclusive"
+    JULIA_NUM_THREADS: "40"
+  only:
+    - main
+    - pushes
+    - tags
+    - external_pull_requests
+  script:
+    - /bin/bash -l
+    - module load lang/JuliaHPC/1.8.3-foss-2022a-CUDA-11.7.0
+    - julia --color=yes --project=. -e 'using Pkg; Pkg.build(verbose=true); Pkg.test();'
+  
+# we don't really want to test the package here (it's fine if tests are failing)
+julia/1.8-coverage:
+  stage: coverage
+  tags:
+    - bauerc-noctua
+  variables:
+    SCHEDULER_PARAMETERS: "-N 1 -n 1 -c 40 -t 00:15:00 -A pc2-mitarbeiter -p all --exclusive"
+    JULIA_NUM_THREADS: "40"
+  only:
+    - main
+    - pushes
+    - tags
+    - external_pull_requests
+  script:
+    - /bin/bash -l
+    - module load lang/JuliaHPC/1.8.3-foss-2022a-CUDA-11.7.0
+    - julia --color=yes --project=. -e 'using Pkg; Pkg.build(verbose=true); Pkg.test(; coverage = true);'
+    - julia --color=yes --project=test/coverage -e 'import Pkg; Pkg.instantiate()'
+    - julia --color=yes --project=test/coverage test/coverage/coverage.jl
+  allow_failure: true
