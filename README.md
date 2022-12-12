@@ -1,6 +1,6 @@
 # BandwidthBenchmark.jl
 
-[![CI@PC2](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/badges/master/pipeline.svg?key_text=CI@PC2)](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/-/pipelines)
+[![CI@PC2](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/badges/main/pipeline.svg?key_text=CI@PC2)](https://git.uni-paderborn.de/pc2-ci/julia/BandwidthBenchmark.jl/-/pipelines)
 [![codecov](https://codecov.io/gh/JuliaPerf/BandwidthBenchmark.jl/branch/main/graph/badge.svg?token=k9hIpsuXen)](https://codecov.io/gh/JuliaPerf/BandwidthBenchmark.jl)
 
 *Measuring memory bandwidth using streaming kernels*
