@@ -21,6 +21,12 @@ function bwscaling(; max_nthreads=Threads.nthreads(), kwargs...)
     return data
 end
 
+"""
+Similar to `bwscaling` but measures the memory bandwidth scaling within and across
+memory domains. Returns a `DataFrame` in which each row contains the kernel name,
+the number of threads per memory domain, the number of domains considered, and the
+measured memory bandwidth (in MB/s).
+"""
 function bwscaling_memory_domains(; kwargs...)
     if Threads.nthreads() < ncores()
         throw(ErrorException("Not enough Julia threads for the available number of cores " *
@@ -34,7 +40,13 @@ function bwscaling_memory_domains(; kwargs...)
     filter!.(!ishyperthread, numacpuids) # drop hyperthreads
     NNUMA = nnuma()
     NCORES_PER_NUMA = first(ncores_per_numa())
-    results = zeros(NCORES_PER_NUMA, NNUMA, NBENCH)
+    # results = zeros(NCORES_PER_NUMA, NNUMA, NBENCH)
+    results = DataFrame(;
+        Function=String[],
+        var"# Threads per domain"=Int64[],
+        var"# Memory domains"=Int64[],
+        var"Rate (MB/s)"=Float64[]
+    )
     for nn in 1:NNUMA # how many domains to use
         for nt in 1:NCORES_PER_NUMA # how many threads/cores to use per domain
             println("nnuma=$nn, nthreads_per_numa=$nt")
@@ -46,8 +58,11 @@ function bwscaling_memory_domains(; kwargs...)
             # run benchmark (all kernels)
             df = bwbench(; nthreads=total_nthreads, kwargs...)
             # store and print result
-            results[nt, nn, :] .= df.var"Rate (MB/s)"
-            println("Bandwidths (MB/s): ", join([round(bw, digits=2) for bw in @view results[nt, nn, :]], ", "))
+            # results[nt, nn, :] .= df.var"Rate (MB/s)"
+            for row in eachrow(df)
+                push!(results, [row.Function, nt, nn, row.var"Rate (MB/s)"])
+            end
+            println("Bandwidths (MB/s): ", join([round(bw, digits=2) for bw in df.var"Rate (MB/s)"], ", "))
             flush(stdout)
         end
     end
