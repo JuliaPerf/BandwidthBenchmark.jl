@@ -26,28 +26,31 @@ Similar to `bwscaling` but measures the memory bandwidth scaling within and acro
 memory domains. Returns a `DataFrame` in which each row contains the kernel name,
 the number of threads per memory domain, the number of domains considered, and the
 measured memory bandwidth (in MB/s).
+
+**Keyword arguments**
+- `max_nnuma`: maximal number of memory domains to consider
+- `max_nthreads`: maximal number of threads per memory domain to consider
 """
-function bwscaling_memory_domains(; kwargs...)
-    if Threads.nthreads() < ncores()
-        throw(ErrorException("Not enough Julia threads for the available number of cores " *
-                             "($(ncores())). Please start Julia with at least $(ncores()) threads."))
-    elseif length(Set(ncores_per_numa())) > 1 # all memory domains have same number of cores
+function bwscaling_memory_domains(; max_nnuma=nnuma(),
+    max_nthreads=maximum(ncores_per_numa()), kwargs...)
+    if Threads.nthreads() < max_nnuma * max_nthreads
+        throw(ErrorException("Not enough Julia threads. " *
+                             "Please start Julia with at least $(max_nnuma * max_nthreads) threads."))
+    elseif all(<=(max_nthreads), ncores_per_numa()) # all memory domains have enough cores
         throw(ErrorException("Memory domains have different number of cores. " *
                              "This is currently unsupported."))
     end
     # query system information
     numacpuids = cpuids_per_numa()
     filter!.(!ishyperthread, numacpuids) # drop hyperthreads
-    NNUMA = nnuma()
-    NCORES_PER_NUMA = first(ncores_per_numa())
     results = DataFrame(;
         Function=String[],
         var"# Threads per domain"=Int64[],
         var"# Memory domains"=Int64[],
         var"Rate (MB/s)"=Float64[]
     )
-    for nn in 1:NNUMA # how many domains to use
-        for nt in 1:NCORES_PER_NUMA # how many threads/cores to use per domain
+    for nn in 1:max_nnuma # how many domains to use
+        for nt in 1:max_nthreads # how many threads/cores to use per domain
             println("nnuma=$nn, nthreads_per_numa=$nt")
             total_nthreads = nn * nt
             # select cpuids
