@@ -1,0 +1,83 @@
+cpu-bind=MASK - gpu-0016, task  0  0 [2685866]: mask |BBBBBBBBBBBBBBBBBBBB||||BBBBBBBBBBBBBBBBBBBB|  set
+Node: gpu-0016
+
+nnuma=1, nthreads_per_numa=1
+Bandwidths (MB/s): 10503.89, 12802.05, 23785.9, 13324.01, 19661.84, 13539.02, 17650.58
+nnuma=1, nthreads_per_numa=2
+Bandwidths (MB/s): 21359.32, 24857.87, 46923.43, 25795.99, 38099.4, 26154.4, 34232.76
+nnuma=1, nthreads_per_numa=3
+Bandwidths (MB/s): 31747.71, 36411.91, 66130.84, 37618.02, 55087.98, 38144.49, 50235.38
+nnuma=1, nthreads_per_numa=4
+Bandwidths (MB/s): 35755.86, 44330.09, 75692.16, 47182.96, 67834.95, 48717.4, 62898.62
+nnuma=1, nthreads_per_numa=5
+Bandwidths (MB/s): 38274.79, 49426.97, 82077.38, 54078.57, 76838.67, 56275.42, 72114.47
+nnuma=1, nthreads_per_numa=6
+Bandwidths (MB/s): 40264.12, 53364.16, 87405.89, 59280.87, 83057.06, 62369.31, 79247.65
+nnuma=1, nthreads_per_numa=7
+Bandwidths (MB/s): 40028.02, 56029.32, 92218.9, 63182.44, 88027.23, 67203.22, 84916.82
+nnuma=1, nthreads_per_numa=8
+Bandwidths (MB/s): 43991.22, 59108.74, 96153.35, 66664.82, 91974.96, 71188.66, 89446.13
+nnuma=1, nthreads_per_numa=9
+Bandwidths (MB/s): 43317.52, 60798.3, 97816.83, 69418.74, 96008.66, 74553.15, 93484.12
+nnuma=1, nthreads_per_numa=10
+Bandwidths (MB/s): 46421.66, 63111.01, 98513.83, 71986.86, 99107.33, 77417.02, 96982.69
+nnuma=1, nthreads_per_numa=11
+Bandwidths (MB/s): 46061.48, 64131.83, 98451.9, 73610.72, 101134.31, 79468.44, 99467.04
+nnuma=1, nthreads_per_numa=12
+Bandwidths (MB/s): 48014.55, 65974.38, 98874.81, 75208.69, 100303.22, 81036.05, 101163.0
+nnuma=1, nthreads_per_numa=13
+Bandwidths (MB/s): 47686.39, 66478.97, 98697.05, 75865.54, 100824.11, 81931.21, 102426.4
+nnuma=1, nthreads_per_numa=14
+Bandwidths (MB/s): 48903.87, 67669.56, 98603.6, 76545.49, 101297.27, 82582.42, 103220.87
+nnuma=1, nthreads_per_numa=15
+Bandwidths (MB/s): 49026.86, 67660.85, 98729.42, 76633.74, 101763.25, 82689.35, 103280.38
+nnuma=1, nthreads_per_numa=16
+Bandwidths (MB/s): 48969.1, 67815.85, 98566.21, 76450.83, 102598.63, 82468.19, 103147.26
+nnuma=1, nthreads_per_numa=17
+Bandwidths (MB/s): 48887.13, 67940.71, 98611.08, 76390.45, 103624.07, 82498.25, 103427.17
+nnuma=1, nthreads_per_numa=18
+Bandwidths (MB/s): 48932.3, 68101.06, 99283.16, 76291.11, 104043.0, 82513.99, 103436.43
+nnuma=1, nthreads_per_numa=19
+Bandwidths (MB/s): 48927.35, 67920.96, 98653.92, 76069.17, 103709.03, 82201.27, 102965.26
+nnuma=1, nthreads_per_numa=20
+Bandwidths (MB/s): 48987.59, 67649.16, 98478.3, 75862.63, 103509.01, 82006.25, 102726.19
+nnuma=2, nthreads_per_numa=1
+Bandwidths (MB/s): 20548.57, 25569.77, 47464.17, 26732.5, 39475.34, 27129.22, 35371.79
+nnuma=2, nthreads_per_numa=2
+Bandwidths (MB/s): 42346.01, 49691.81, 93907.47, 51635.78, 76299.72, 52560.02, 68573.63
+nnuma=2, nthreads_per_numa=3
+Bandwidths (MB/s): 63195.54, 72687.34, 131541.34, 75249.97, 110226.8, 76399.01, 100197.2
+nnuma=2, nthreads_per_numa=4
+Bandwidths (MB/s): 71224.34, 88622.44, 151503.7, 94585.38, 136070.23, 97790.13, 125870.75
+nnuma=2, nthreads_per_numa=5
+Bandwidths (MB/s): 76287.76, 98273.69, 164677.77, 108283.71, 153954.22, 112858.82, 144047.71
+nnuma=2, nthreads_per_numa=6
+Bandwidths (MB/s): 80382.05, 106307.75, 175206.28, 118535.21, 167189.72, 124725.56, 159556.09
+nnuma=2, nthreads_per_numa=7
+Bandwidths (MB/s): 84683.51, 112161.73, 184035.71, 126723.79, 177027.69, 134330.23, 170382.73
+nnuma=2, nthreads_per_numa=8
+Bandwidths (MB/s): 87347.81, 117553.07, 192193.73, 133239.3, 185451.75, 142747.28, 179943.47
+nnuma=2, nthreads_per_numa=9
+Bandwidths (MB/s): 86399.31, 120412.34, 196431.72, 138355.66, 192419.77, 148855.34, 186699.44
+nnuma=2, nthreads_per_numa=10
+Bandwidths (MB/s): 92621.58, 125351.42, 198839.46, 143058.86, 198602.45, 154695.7, 193895.53
+nnuma=2, nthreads_per_numa=11
+Bandwidths (MB/s): 91284.47, 127551.32, 199304.18, 146426.46, 203114.09, 158581.04, 198799.25
+nnuma=2, nthreads_per_numa=12
+Bandwidths (MB/s): 95798.71, 130760.66, 198657.02, 149361.11, 203695.91, 161615.68, 202279.59
+nnuma=2, nthreads_per_numa=13
+Bandwidths (MB/s): 97261.58, 132167.44, 198507.47, 150425.54, 203845.0, 162898.45, 204117.27
+nnuma=2, nthreads_per_numa=14
+Bandwidths (MB/s): 96170.35, 133172.9, 198417.54, 151781.34, 204552.5, 164149.15, 205201.28
+nnuma=2, nthreads_per_numa=15
+Bandwidths (MB/s): 98223.31, 133499.05, 197339.11, 152169.57, 204907.87, 163918.82, 206243.99
+nnuma=2, nthreads_per_numa=16
+Bandwidths (MB/s): 98145.81, 133629.38, 197405.7, 150796.99, 207326.99, 163610.73, 204809.89
+nnuma=2, nthreads_per_numa=17
+Bandwidths (MB/s): 98240.85, 133266.79, 198463.27, 150185.17, 207034.37, 163143.94, 205102.76
+nnuma=2, nthreads_per_numa=18
+Bandwidths (MB/s): 99065.68, 135073.82, 199246.41, 152122.91, 207303.52, 163116.48, 204626.13
+nnuma=2, nthreads_per_numa=19
+Bandwidths (MB/s): 97986.55, 133994.51, 195932.78, 148879.3, 207157.66, 162753.95, 203347.33
+nnuma=2, nthreads_per_numa=20
+Bandwidths (MB/s): 99076.14, 132677.83, 197878.7, 148700.04, 205214.91, 162476.22, 204815.93
