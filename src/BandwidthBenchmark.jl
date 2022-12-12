@@ -9,6 +9,7 @@ using Statistics
 using DataFrames
 using PrettyTables
 using Requires
+using ThreadPinning
 
 # LIKWID dummies
 LIKWID_register(tag) = nothing
@@ -23,7 +24,7 @@ include("affinity.jl")
 include("benchmarks.jl")
 include("bwbench.jl")
 include("bwscaling.jl")
-export bwbench, bwscaling, flopsscaling
+export bwbench, bwscaling, bwscaling_memory_domains, flopsscaling
 
 function __init__()
     @require LIKWID="bf22376a-e803-4184-b2ed-56326e3bff83" begin
