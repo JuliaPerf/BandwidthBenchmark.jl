@@ -34,11 +34,12 @@ measured memory bandwidth (in MB/s).
 function bwscaling_memory_domains(; max_nnuma=nnuma(),
     max_nthreads=maximum(ncores_per_numa()), kwargs...)
     if Threads.nthreads() < max_nnuma * max_nthreads
-        throw(ErrorException("Not enough Julia threads. " *
-                             "Please start Julia with at least $(max_nnuma * max_nthreads) threads."))
-    elseif all(<=(max_nthreads), ncores_per_numa()) # all memory domains have enough cores
-        throw(ErrorException("Memory domains have different number of cores. " *
-                             "This is currently unsupported."))
+        throw(ErrorException("Not enough Julia threads. Please start Julia with at least " *
+                             "$(max_nnuma * max_nthreads) threads."))
+    elseif !all(>=(max_nthreads), ncores_per_numa())
+        throw(ErrorException("Not all memory domains have enough cores (at least " *
+                             "max_nthreads=$(max_nthreads)). You may try to set the " *
+                             "keyword argument max_nthreads to a lower value."))
     end
     # query system information
     numacpuids = cpuids_per_numa()
