@@ -13,10 +13,10 @@ ThreadPinning = "811555cd-349b-4f26-b7bc-1f208b848042"
 
 [compat]
 DataFrames = "1"
-PrettyTables = "1"
+PrettyTables = "1, 2"
 Requires = "1"
-ThreadPinning = "0.6"
 TestItemRunner = "0.2"
+ThreadPinning = "0.6"
 julia = "1"
 
 [extras]
