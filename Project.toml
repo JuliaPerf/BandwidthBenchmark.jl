@@ -16,7 +16,7 @@ DataFrames = "1"
 PrettyTables = "1, 2"
 Requires = "1"
 TestItemRunner = "0.2"
-ThreadPinning = "0.6"
+ThreadPinning = "0.6, 0.7"
 julia = "1"
 
 [extras]
