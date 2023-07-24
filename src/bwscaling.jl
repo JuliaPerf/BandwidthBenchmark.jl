@@ -28,34 +28,37 @@ the number of threads per memory domain, the number of domains considered, and t
 measured memory bandwidth (in MB/s).
 
 **Keyword arguments**
-- `max_nnuma`: maximal number of memory domains to consider
+- `domains`: memory domains to consider (logical indices, i.e. starting at 1)
 - `max_nthreads`: maximal number of threads per memory domain to consider
 """
-function bwscaling_memory_domains(; max_nnuma=nnuma(),
+function bwscaling_memory_domains(; domains=1:nnuma(),
     max_nthreads=maximum(ncores_per_numa()), kwargs...)
-    if Threads.nthreads() < max_nnuma * max_nthreads
-        throw(ErrorException("Not enough Julia threads. Please start Julia with at least " *
-                             "$(max_nnuma * max_nthreads) threads."))
-    elseif !all(>=(max_nthreads), ncores_per_numa())
-        throw(ErrorException("Not all memory domains have enough cores (at least " *
-                             "max_nthreads=$(max_nthreads)). You may try to set the " *
-                             "keyword argument max_nthreads to a lower value."))
+    if !all(i->i>0 && i<=nnuma(), domains)
+        throw(ArgumentError("Invalid argument `numas` (out of bounds)."))
     end
     # query system information
-    numacpuids = cpuids_per_numa()
+    numacpuids = cpuids_per_numa()[domains]
     filter!.(!ishyperthread, numacpuids) # drop hyperthreads
+    if !all(x->length(x) >= max_nthreads, numacpuids)
+        throw(ArgumentError("Some memory domains don't have enough CPU-cores. Please provide a smaller value for `max_nthreads`."))
+    end
+    if Threads.nthreads() < length(domains) * max_nthreads
+        throw(ErrorException("Not enough Julia threads. Please start Julia with at least " *
+                             "$(length(domains) * max_nthreads) threads."))
+    end
     results = DataFrame(;
         Function=String[],
         var"# Threads per domain"=Int64[],
         var"# Memory domains"=Int64[],
         var"Rate (MB/s)"=Float64[]
     )
-    for nn in 1:max_nnuma # how many domains to use
+    for nn in 1:length(domains) # how many domains to use
         for nt in 1:max_nthreads # how many threads/cores to use per domain
-            println("nnuma=$nn, nthreads_per_numa=$nt")
+            println("domain=$(domains[nn]), nthreads_per_numa=$nt")
             total_nthreads = nn * nt
             # select cpuids
             cpuids = @views reduce(vcat, numacpuids[i][1:nt] for i in 1:nn)
+            # @show cpuids
             # pin threads
             pinthreads(cpuids)
             # run benchmark (all kernels)

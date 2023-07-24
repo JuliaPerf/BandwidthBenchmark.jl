@@ -13,7 +13,7 @@ Threads.nthreads() ≥ 2 ||
 end
 
 @testset "bwscaling_memory_domains" begin
-    df = bwscaling_memory_domains(; max_nnuma=1, max_nthreads=2, N=1000)
+    df = bwscaling_memory_domains(; domains=1:1, max_nthreads=2, N=1000)
     @test df isa DataFrame
     @test names(df) == ["Function", "# Threads per domain", "# Memory domains", "Rate (MB/s)"]
     @test size(df) == (1 * 2 * BandwidthBenchmark.NBENCH, 4)
